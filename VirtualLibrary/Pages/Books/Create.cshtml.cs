@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using VirtualLibrary.Data;
-using VirtualLibrary.Models;
+using VirtualLibrary.Model;
 
 namespace VirtualLibrary.Pages.Books
 {
@@ -25,13 +25,13 @@ namespace VirtualLibrary.Pages.Books
         }
 
         [BindProperty]
-        public Book Book { get; set; } = default!;
+        public Book Book { get; set; }
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid || _context.Book == null || Book == null)
+          if (!ModelState.IsValid)
             {
                 return Page();
             }

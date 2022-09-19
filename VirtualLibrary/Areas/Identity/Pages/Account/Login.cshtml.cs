@@ -101,7 +101,7 @@ namespace VirtualLibrary.Areas.Identity.Pages.Account
             ReturnUrl = returnUrl;
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        public async Task<IActionResult> OnPostAsync(string returnUrl = "/Books/index")
         {
             returnUrl ??= Url.Content("~/");
 

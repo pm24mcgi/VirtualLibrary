@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using VirtualLibrary.Data;
-using VirtualLibrary.Models;
+using VirtualLibrary.Model;
 
 namespace VirtualLibrary.Pages.Books
 {
+    [Authorize]
     public class IndexModel : PageModel
     {
         private readonly VirtualLibrary.Data.ApplicationDbContext _context;

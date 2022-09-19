@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using VirtualLibrary.Data;
-using VirtualLibrary.Models;
+using VirtualLibrary.Model;
 
 namespace VirtualLibrary.Pages.Books
 {
@@ -20,7 +20,7 @@ namespace VirtualLibrary.Pages.Books
         }
 
         [BindProperty]
-      public Book Book { get; set; } = default!;
+      public Book Book { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,7 +29,7 @@ namespace VirtualLibrary.Pages.Books
                 return NotFound();
             }
 
-            var book = await _context.Book.FirstOrDefaultAsync(m => m.ID == id);
+            var book = await _context.Book.FirstOrDefaultAsync(m => m.Id == id);
 
             if (book == null)
             {

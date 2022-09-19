@@ -8,7 +8,7 @@ using VirtualLibrary.Data;
 
 #nullable disable
 
-namespace VirtualLibrary.Data.Migrations
+namespace VirtualLibrary.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -167,12 +167,10 @@ namespace VirtualLibrary.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -209,12 +207,10 @@ namespace VirtualLibrary.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -224,13 +220,13 @@ namespace VirtualLibrary.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("VirtualLibrary.Models.Book", b =>
+            modelBuilder.Entity("VirtualLibrary.Model.Book", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Author")
                         .IsRequired()
@@ -250,9 +246,83 @@ namespace VirtualLibrary.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
                     b.ToTable("Book");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Author = "Author1",
+                            CheckedOut = false,
+                            Description = "This is a lovely book.",
+                            ReleaseDate = new DateTime(2008, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Book1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Author = "Author2",
+                            CheckedOut = false,
+                            Description = "This is a lovely book.",
+                            ReleaseDate = new DateTime(2010, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Book2"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Author = "Author3",
+                            CheckedOut = false,
+                            Description = "This is a lovely book.",
+                            ReleaseDate = new DateTime(2008, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Book3"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Author = "Author4",
+                            CheckedOut = false,
+                            Description = "This is a lovely book.",
+                            ReleaseDate = new DateTime(2011, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Book4"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Author = "Author5",
+                            CheckedOut = false,
+                            Description = "This is a lovely book.",
+                            ReleaseDate = new DateTime(1992, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Book5"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Author = "Author6",
+                            CheckedOut = false,
+                            Description = "This is a lovely book.",
+                            ReleaseDate = new DateTime(1964, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Book6"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Author = "Author7",
+                            CheckedOut = false,
+                            Description = "This is a lovely book.",
+                            ReleaseDate = new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Book7"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Author = "Author8",
+                            CheckedOut = false,
+                            Description = "This is a lovely book.",
+                            ReleaseDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Book8"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

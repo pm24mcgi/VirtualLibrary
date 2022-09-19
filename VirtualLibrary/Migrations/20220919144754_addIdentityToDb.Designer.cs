@@ -9,11 +9,11 @@ using VirtualLibrary.Data;
 
 #nullable disable
 
-namespace VirtualLibrary.Data.Migrations
+namespace VirtualLibrary.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220914161625_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20220919144754_addIdentityToDb")]
+    partial class addIdentityToDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -226,13 +226,13 @@ namespace VirtualLibrary.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("VirtualLibrary.Models.Book", b =>
+            modelBuilder.Entity("VirtualLibrary.Model.Book", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Author")
                         .IsRequired()
@@ -252,7 +252,7 @@ namespace VirtualLibrary.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
                     b.ToTable("Book");
                 });
