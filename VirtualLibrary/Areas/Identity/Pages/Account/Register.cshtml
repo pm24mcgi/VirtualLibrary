@@ -29,8 +29,12 @@
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
             <div class="form-floating my-2">
-                <input type="radio" name="role" value="@SD.User" />@SD.User
-                <input type="radio" name="role" value="@SD.Admin" />@SD.Admin
+                Library Role:
+                <select id="role" name="role">
+                    <option value="Select..."/>Select...
+                    <option value="user"/>User
+                    <option value="@SD.Admin"/>@SD.Admin
+                </select>
             </div>
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
         </form>

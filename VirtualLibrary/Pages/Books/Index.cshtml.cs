@@ -11,6 +11,7 @@ using VirtualLibrary.Model;
 
 namespace VirtualLibrary.Pages.Books
 {
+    //[Authorize(Roles = "Admin")]
     [Authorize]
     public class IndexModel : PageModel
     {

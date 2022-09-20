@@ -23,6 +23,8 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.AccessDeniedPath = "/Identity/Account/AccessDenied";
 });
 
+//builder.Services.AddScoped<IDbInitializer, DbInitializer>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -33,14 +35,25 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+//SeedDatabase();
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseAuthentication();;
+app.UseAuthentication();
 
 app.UseAuthorization();
 
 app.MapRazorPages();
 
 app.Run();
+
+//void SeedDatabase()
+//{
+//    using (var scope = app.Services.CreateScope())
+//    {
+//        var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+//        dbInitializer.Initialize();
+//    }
+//}
