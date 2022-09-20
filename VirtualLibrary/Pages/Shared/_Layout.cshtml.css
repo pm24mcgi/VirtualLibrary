@@ -46,3 +46,17 @@ button.accept-policy {
   white-space: nowrap;
   line-height: 60px;
 }
+
+.Logo {
+    font-weight: 700;
+    color: greenyellow;
+}
+
+.CustomNavBar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 10rem;
+    padding-right: 10rem;
+}

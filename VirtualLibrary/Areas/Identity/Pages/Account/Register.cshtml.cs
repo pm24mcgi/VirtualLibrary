@@ -150,6 +150,7 @@ namespace VirtualLibrary.Areas.Identity.Pages.Account
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
                         return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                        //return Redirect("/Books/index");
                     }
                     else
                     {
