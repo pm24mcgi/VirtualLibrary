@@ -7,17 +7,17 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using VirtualLibrary.Data;
-using VirtualLibrary.Model;
+using VL.Data;
+using VL.Models;
 
 namespace VirtualLibrary.Pages.Books
 {
     [Authorize(Roles = "Admin")]
     public class DeleteModel : PageModel
     {
-        private readonly VirtualLibrary.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public DeleteModel(VirtualLibrary.Data.ApplicationDbContext context)
+        public DeleteModel(ApplicationDbContext context)
         {
             _context = context;
         }

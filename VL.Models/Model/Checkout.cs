@@ -1,4 +1,4 @@
-﻿namespace VirtualLibrary.Model
+﻿namespace VL.Models
 {
     public class Checkout
     {

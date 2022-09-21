@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using VirtualLibrary.Data;
-using VirtualLibrary.Model;
+using VL.Data;
+using VL.Models;
 
 namespace VirtualLibrary.Pages.Books
 {
     public class DetailsModel : PageModel
     {
-        private readonly VirtualLibrary.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public DetailsModel(VirtualLibrary.Data.ApplicationDbContext context)
+        public DetailsModel(ApplicationDbContext context)
         {
             _context = context;
         }

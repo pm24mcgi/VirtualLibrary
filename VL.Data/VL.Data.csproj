@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -8,11 +8,10 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.9" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.9" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\VL.Data\VL.Data.csproj" />
+    <ProjectReference Include="..\VL.Models\VL.Models.csproj" />
   </ItemGroup>
 
 </Project>

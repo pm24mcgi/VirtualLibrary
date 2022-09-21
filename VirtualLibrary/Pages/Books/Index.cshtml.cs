@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using VirtualLibrary.Data;
-using VirtualLibrary.Model;
+using VL.Data;
+using VL.Models;
 
 namespace VirtualLibrary.Pages.Books
 {
@@ -15,9 +15,9 @@ namespace VirtualLibrary.Pages.Books
     [Authorize]
     public class IndexModel : PageModel
     {
-        private readonly VirtualLibrary.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public IndexModel(VirtualLibrary.Data.ApplicationDbContext context)
+        public IndexModel(ApplicationDbContext context)
         {
             _context = context;
         }

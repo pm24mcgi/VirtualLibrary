@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using VirtualLibrary.Model;
+using VL.Models;
 
-namespace VirtualLibrary.Data
+namespace VL.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
