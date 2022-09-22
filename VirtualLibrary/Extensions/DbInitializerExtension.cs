@@ -9,6 +9,6 @@ internal static class DbInitializerExtension
         using var scope = app.Services.CreateScope();
         var services = scope.ServiceProvider;
         var seedingService = services.GetRequiredService<ISeedingService>();
-        await seedingService.SeedBooksAsync(50);
+        await seedingService.SeedBooksAsync(500);
     }
 }
