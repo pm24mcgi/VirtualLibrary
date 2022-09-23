@@ -123,7 +123,8 @@ namespace VirtualLibrary.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if(!await _roleManager.RoleExistsAsync(SD.Admin))
                 {
-                    _roleManager.CreateAsync(new IdentityRole(SD.Admin)).GetAwaiter().GetResult();
+                    await _roleManager.CreateAsync(new IdentityRole(SD.Admin));
+                    await _roleManager.CreateAsync(new IdentityRole(SD.User));
                 }
 
                 if (result.Succeeded)
@@ -132,7 +133,11 @@ namespace VirtualLibrary.Areas.Identity.Pages.Account
                     if(role==SD.Admin)
                     {
                         await _userManager.AddToRoleAsync(user, SD.Admin);
-                    } 
+                    }
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(user, SD.User);
+                    }
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);

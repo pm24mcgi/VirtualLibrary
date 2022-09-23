@@ -12,7 +12,7 @@ using VL.Data.Data;
 namespace VL.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220923170728_initial")]
+    [Migration("20220923201622_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
