@@ -101,7 +101,7 @@ namespace VirtualLibrary.Areas.Identity.Pages.Account
             ReturnUrl = returnUrl;
         }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+        public async Task<IActionResult> OnPostAsync(string returnUrl = "/Books/index")
         {
             returnUrl ??= Url.Content("~/");
 
@@ -115,7 +115,7 @@ namespace VirtualLibrary.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    return LocalRedirect("/Books/index");
                 }
                 if (result.RequiresTwoFactor)
                 {

@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using VirtualLibrary.Data;
-using VirtualLibrary.Models;
+using VirtualLibrary.Model;
 
 namespace VirtualLibrary.Pages.Books
 {
+    [Authorize(Roles = "Admin")]
     public class DeleteModel : PageModel
     {
         private readonly VirtualLibrary.Data.ApplicationDbContext _context;
@@ -20,7 +23,7 @@ namespace VirtualLibrary.Pages.Books
         }
 
         [BindProperty]
-      public Book Book { get; set; } = default!;
+      public Book Book { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,7 +32,7 @@ namespace VirtualLibrary.Pages.Books
                 return NotFound();
             }
 
-            var book = await _context.Book.FirstOrDefaultAsync(m => m.ID == id);
+            var book = await _context.Book.FirstOrDefaultAsync(m => m.Id == id);
 
             if (book == null)
             {

@@ -1,13 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace VirtualLibrary.Models
+namespace VirtualLibrary.Model
 {
     public class Book
     {
-
-        public int ID { get; set; }
+        [Key]
+        public int Id { get; set; }
         public string Title { get; set; } = string.Empty;
+        [Required]
         public string Author { get; set; } = string.Empty;
+        [Required]
 
         [DataType(DataType.Date)]
         public DateTime ReleaseDate { get; set; }
