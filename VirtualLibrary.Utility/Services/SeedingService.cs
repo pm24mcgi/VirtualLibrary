@@ -27,6 +27,7 @@ namespace VL.Utility.Services
                 return;
             }
 
+            Randomizer.Seed = new Random(1338);
             var books = new Faker<Book>()
                 .RuleFor(u => u.Title, (f, u) => f.Commerce.ProductName())
                 .RuleFor(u => u.Author, (f, u) => f.Person.FullName)
