@@ -37,6 +37,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.MigrateDatabasesAsync();
 app.UseItToSeedSqlServerAsync();
 
 app.UseHttpsRedirection();

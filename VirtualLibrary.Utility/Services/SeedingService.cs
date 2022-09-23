@@ -23,8 +23,6 @@ namespace VL.Utility.Services
 
             // Await the add and save the changes to the DB
             await _applicationDbContext.SaveChangesAsync();
-
-            // we also need to autmate migrations somewhere???????
         }
     }
 }
