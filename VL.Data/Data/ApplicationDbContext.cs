@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using VL.Models;
 
-namespace VL.Data
+namespace VL.Data.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {

@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using VL.Data;
+using VL.Data.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using VL.Utility;
@@ -13,7 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")
-    ));
+));
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -37,8 +37,12 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.MigrateDatabasesAsync();
-app.UseItToSeedSqlServerAsync();
+await app.MigrateDatabasesAsync();
+
+if (app.Environment.IsDevelopment())
+{
+    await app.SeedDataAsync();
+}
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
