@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using VL.Models;
+using VL.Shared.Models;
 
-namespace VL.Data.Data
+namespace VL.Shared.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {

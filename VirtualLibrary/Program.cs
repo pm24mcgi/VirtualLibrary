@@ -1,11 +1,11 @@
 using Microsoft.EntityFrameworkCore;
-using VL.Data.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
-using VL.Utility;
-using VL.Utility.Services;
-using VL.Utility.Interfaces;
 using VirtualLibrary.Extensions;
+using VL.Shared.Data;
+using VL.Shared;
+using VL.Shared.Interfaces;
+using VL.Shared.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using VL.Data.Data;
-using VL.Utility.Interfaces;
+using VL.Shared.Data;
+using VL.Shared.Interfaces;
 
 namespace VirtualLibrary.Extensions;
 

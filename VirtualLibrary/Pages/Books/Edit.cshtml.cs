@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using VL.Models;
-using VL.Data.Data;
+using VL.Shared.Data;
+using VL.Shared.Models;
 
 namespace VirtualLibrary.Pages.Books
 {

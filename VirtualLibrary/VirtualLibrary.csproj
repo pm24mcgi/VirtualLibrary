@@ -19,9 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\VirtualLibrary.Utility\VL.Utility.csproj" />
-    <ProjectReference Include="..\VL.Data\VL.Data.csproj" />
-    <ProjectReference Include="..\VL.Models\VL.Models.csproj" />
+    <ProjectReference Include="..\VL.Data\VL.Shared.csproj" />
   </ItemGroup>
 
 </Project>
