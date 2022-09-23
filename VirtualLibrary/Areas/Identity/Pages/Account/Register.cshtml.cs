@@ -121,22 +121,22 @@ namespace VirtualLibrary.Areas.Identity.Pages.Account
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
-                if(!await _roleManager.RoleExistsAsync(SD.Admin))
+                if(!await _roleManager.RoleExistsAsync(Roles.Librarian))
                 {
-                    await _roleManager.CreateAsync(new IdentityRole(SD.Admin));
-                    await _roleManager.CreateAsync(new IdentityRole(SD.User));
+                    await _roleManager.CreateAsync(new IdentityRole(Roles.Librarian));
+                    await _roleManager.CreateAsync(new IdentityRole(Roles.User));
                 }
 
                 if (result.Succeeded)
                 {
                     string role = Request.Form["role"].ToString();
-                    if(role==SD.Admin)
+                    if(role== Roles.Librarian)
                     {
-                        await _userManager.AddToRoleAsync(user, SD.Admin);
+                        await _userManager.AddToRoleAsync(user, Roles.Librarian);
                     }
                     else
                     {
-                        await _userManager.AddToRoleAsync(user, SD.User);
+                        await _userManager.AddToRoleAsync(user, Roles.User);
                     }
                     _logger.LogInformation("User created a new account with password.");
 

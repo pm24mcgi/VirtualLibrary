@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace VL.Utility
 {
-    public static class SD
+    public static class Roles
     {
-        public const string Admin = "Admin";
+        public const string Librarian = "Librarian";
         public const string User = "User";
     }
 }
