@@ -78,7 +78,10 @@ namespace VL.Shared.Services
             await _emailStore.SetEmailAsync(user, "user@vl.com", CancellationToken.None);
             var result = await _userManager.CreateAsync(user, "Password@123");
 
-
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, Roles.User);
+            }
         }
 
         private IdentityUser CreateUser()
