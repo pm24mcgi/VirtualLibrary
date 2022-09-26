@@ -19,7 +19,6 @@ internal static class DbInitializerExtension
         var services = scope.ServiceProvider;
         var seedingService = services.GetRequiredService<ISeedingService>();
         await seedingService.SeedBooksAsync(500);
-        await seedingService.SeedRolesAsync(500);
-        await seedingService.SeedUsersAndRolesAsync(500);
+        await seedingService.SeedUsersAsync(500);
     }
 }
