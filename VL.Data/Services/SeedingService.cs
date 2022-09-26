@@ -54,6 +54,17 @@ namespace VL.Shared.Services
             await _applicationDbContext.SaveChangesAsync();
         }
 
+        public async Task SeedRolesAsync(int count)
+        {
+            if (await _applicationDbContext.Roles.AnyAsync())
+            {
+                return;
+            }
+
+            await _roleManager.CreateAsync(new IdentityRole(Roles.Librarian));
+            await _roleManager.CreateAsync(new IdentityRole(Roles.User));
+        }
+
         public async Task SeedUsersAsync(int count)
         {
             if (await _applicationDbContext.Users.AnyAsync())
@@ -65,8 +76,11 @@ namespace VL.Shared.Services
 
             await _userStore.SetUserNameAsync(user, "user@vl.com", CancellationToken.None);
             await _emailStore.SetEmailAsync(user, "user@vl.com", CancellationToken.None);
-            await _userManager.CreateAsync(user, "Password@123");
+            var result = await _userManager.CreateAsync(user, "Password@123");
+
+
         }
+
         private IdentityUser CreateUser()
         {
             try
@@ -90,15 +104,5 @@ namespace VL.Shared.Services
             return (IUserEmailStore<IdentityUser>)_userStore;
         }
 
-        //public async Task SeedRolesAsync(int count)
-        //{
-        //    _applicationDbContext.Add(new IdentityUserRole<string>
-        //    {
-        //        RoleId = "2c5e174e-3b0e-446f-86af-483d56fd7210",
-        //        UserId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
-        //    });
-
-        //    await _applicationDbContext.SaveChangesAsync();
-        //}
     }
 }
