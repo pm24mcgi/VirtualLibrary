@@ -9,7 +9,6 @@ namespace VL.Shared.Models
         public string Title { get; set; } = string.Empty;
         [Required]
         public string Author { get; set; } = string.Empty;
-        [Required]
 
         [DataType(DataType.Date)]
         public DateTime ReleaseDate { get; set; }
