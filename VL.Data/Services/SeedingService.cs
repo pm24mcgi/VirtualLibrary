@@ -91,7 +91,7 @@ namespace VL.Shared.Services
 
             if (librarianResult.Succeeded)
             {
-                await _userManager.AddToRoleAsync(user, Roles.Librarian);
+                await _userManager.AddToRoleAsync(librarian, Roles.Librarian);
             }
         }
 
