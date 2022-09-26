@@ -76,11 +76,22 @@ namespace VL.Shared.Services
 
             await _userStore.SetUserNameAsync(user, "user@vl.com", CancellationToken.None);
             await _emailStore.SetEmailAsync(user, "user@vl.com", CancellationToken.None);
-            var result = await _userManager.CreateAsync(user, "Password@123");
+            var userResult = await _userManager.CreateAsync(user, "Password@123");
 
-            if (result.Succeeded)
+            if (userResult.Succeeded)
             {
                 await _userManager.AddToRoleAsync(user, Roles.User);
+            }
+
+            var librarian = CreateUser();
+
+            await _userStore.SetUserNameAsync(librarian, "librarian@vl.com", CancellationToken.None);
+            await _emailStore.SetEmailAsync(librarian, "librarian@vl.com", CancellationToken.None);
+            var librarianResult = await _userManager.CreateAsync(librarian, "Password@123");
+
+            if (librarianResult.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, Roles.Librarian);
             }
         }
 
