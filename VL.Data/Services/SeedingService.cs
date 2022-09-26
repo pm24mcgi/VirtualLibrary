@@ -54,7 +54,7 @@ namespace VL.Shared.Services
             await _applicationDbContext.SaveChangesAsync();
         }
 
-        public async Task SeedRolesAsync(int count)
+        public async Task SeedRolesAsync()
         {
             if (await _applicationDbContext.Roles.AnyAsync())
             {
@@ -65,7 +65,7 @@ namespace VL.Shared.Services
             await _roleManager.CreateAsync(new IdentityRole(Roles.User));
         }
 
-        public async Task SeedUsersAsync(int count)
+        public async Task SeedUsersAsync()
         {
             if (await _applicationDbContext.Users.AnyAsync())
             {
