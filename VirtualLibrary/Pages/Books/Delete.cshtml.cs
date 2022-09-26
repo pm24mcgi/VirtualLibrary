@@ -7,7 +7,7 @@ using VL.Shared.Models;
 
 namespace VirtualLibrary.Pages.Books
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Librarian")]
     public class DeleteModel : PageModel
     {
         private readonly ApplicationDbContext _context;

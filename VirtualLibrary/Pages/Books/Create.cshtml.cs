@@ -6,7 +6,7 @@ using VL.Shared.Models;
 
 namespace VirtualLibrary.Pages.Books
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Librarian")]
     public class CreateModel : PageModel
     {
         private readonly ApplicationDbContext _context;
