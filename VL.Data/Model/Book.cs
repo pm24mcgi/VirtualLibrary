@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace VL.Shared.Models  
+namespace VL.Shared.Model  
 {
     public class Book
     {

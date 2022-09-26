@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using VL.Shared.Models;
+using VL.Shared.Model;
 
 namespace VL.Shared.Data
 {
