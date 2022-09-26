@@ -1,14 +1,9 @@
 ﻿using Bogus;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using VL.Shared.Data;
 using VL.Shared.Interfaces;
 using VL.Shared.Models;
-using IdentityRole = Microsoft.AspNetCore.Identity.IdentityRole;
-using IdentityUser = Microsoft.AspNetCore.Identity.IdentityUser;
 
 namespace VL.Shared.Services
 {
@@ -16,18 +11,26 @@ namespace VL.Shared.Services
     {
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly Faker _faker;
-        private readonly Microsoft.AspNetCore.Identity.UserManager<IdentityUser> _userManager;
-        private readonly Microsoft.AspNetCore.Identity.RoleManager<IdentityRole> _roleManager;
-        private readonly Microsoft.AspNetCore.Identity.IUserStore<IdentityUser> _userStore;
-        private readonly Microsoft.AspNetCore.Identity.IUserEmailStore<IdentityUser> _emailStore;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly IUserStore<IdentityUser> _userStore;
+        private readonly IUserEmailStore<IdentityUser> _emailStore;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public SeedingService(ApplicationDbContext applicationDbContext)
+        public SeedingService(
+            ApplicationDbContext applicationDbContext,
+            UserManager<IdentityUser> userManager,
+            IUserStore<IdentityUser> userStore,
+            RoleManager<IdentityRole> roleManager)
         {
             _applicationDbContext = applicationDbContext;
             _faker = new Faker
             {
                 Random = new Randomizer(8675309)
             };
+            _userManager = userManager;
+            _userStore = userStore;
+            _emailStore = GetEmailStore();
+            _roleManager = roleManager;
         }
 
         public async Task SeedBooksAsync(int count)
@@ -76,6 +79,15 @@ namespace VL.Shared.Services
                     $"Ensure that '{nameof(IdentityUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
                     $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
             }
+        }
+
+        private IUserEmailStore<IdentityUser> GetEmailStore()
+        {
+            if (!_userManager.SupportsUserEmail)
+            {
+                throw new NotSupportedException("The default UI requires a user store with email support.");
+            }
+            return (IUserEmailStore<IdentityUser>)_userStore;
         }
 
         //public async Task SeedRolesAsync(int count)
