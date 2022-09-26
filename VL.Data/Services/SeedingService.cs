@@ -1,14 +1,14 @@
 ﻿using Bogus;
-using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using VL.Shared.Data;
 using VL.Shared.Interfaces;
 using VL.Shared.Models;
 using IdentityRole = Microsoft.AspNetCore.Identity.IdentityRole;
 using IdentityUser = Microsoft.AspNetCore.Identity.IdentityUser;
-using System.Data.Entity;
 
 namespace VL.Shared.Services
 {
@@ -16,33 +16,18 @@ namespace VL.Shared.Services
     {
         private readonly ApplicationDbContext _applicationDbContext;
         private readonly Faker _faker;
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly IUserStore<IdentityUser> _userStore;
-        private readonly IUserEmailStore<IdentityUser> _emailStore;
+        private readonly Microsoft.AspNetCore.Identity.UserManager<IdentityUser> _userManager;
+        private readonly Microsoft.AspNetCore.Identity.RoleManager<IdentityRole> _roleManager;
+        private readonly Microsoft.AspNetCore.Identity.IUserStore<IdentityUser> _userStore;
+        private readonly Microsoft.AspNetCore.Identity.IUserEmailStore<IdentityUser> _emailStore;
 
-        //public SeedingService(
-        //    UserManager<IdentityUser> userManager,
-        //    RoleManager<IdentityRole> roleManager,
-        //    IUserStore<IdentityUser> userStore)
-        //{
-        //    _userManager = userManager;
-        //    _roleManager = roleManager;
-        //    _userStore = userStore;
-        //    _emailStore = GetEmailStore();
-        //}
-
-        public SeedingService(ApplicationDbContext applicationDbContext, RoleManager<IdentityRole> roleManager, IUserStore<IdentityUser> userStore, IUserEmailStore<IdentityUser> emailStore, UserManager<IdentityUser> userManager)
+        public SeedingService(ApplicationDbContext applicationDbContext)
         {
             _applicationDbContext = applicationDbContext;
             _faker = new Faker
             {
                 Random = new Randomizer(8675309)
             };
-            _roleManager = roleManager;
-            _userStore = userStore;
-            _emailStore = emailStore;
-            _userManager = userManager;
         }
 
         public async Task SeedBooksAsync(int count)
@@ -66,19 +51,7 @@ namespace VL.Shared.Services
             await _applicationDbContext.SaveChangesAsync();
         }
 
-        public async Task SeedRolesAsync(int count)
-        {
-
-            if (await _applicationDbContext.Roles.AnyAsync())
-            {
-                return;
-            }
-
-            await _roleManager.CreateAsync(new IdentityRole(Roles.Librarian));
-            await _roleManager.CreateAsync(new IdentityRole(Roles.User));
-        }
-
-        public async Task SeedUsersAndRolesAsync(int count)
+        public async Task SeedUsersAsync(int count)
         {
             if (await _applicationDbContext.Users.AnyAsync())
             {
@@ -90,14 +63,7 @@ namespace VL.Shared.Services
             await _userStore.SetUserNameAsync(user, "user@vl.com", CancellationToken.None);
             await _emailStore.SetEmailAsync(user, "user@vl.com", CancellationToken.None);
             await _userManager.CreateAsync(user, "Password@123");
-            await _userManager.AddToRoleAsync(user, Roles.User);
-
-            await _userStore.SetUserNameAsync(user, "librarian@vl.com", CancellationToken.None);
-            await _emailStore.SetEmailAsync(user, "librarian@vl.com", CancellationToken.None);
-            await _userManager.CreateAsync(user, "Password@123");
-            await _userManager.AddToRoleAsync(user, Roles.Librarian);
         }
-
         private IdentityUser CreateUser()
         {
             try
@@ -111,13 +77,16 @@ namespace VL.Shared.Services
                     $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
             }
         }
-        //private IUserEmailStore<IdentityUser> GetEmailStore()
+
+        //public async Task SeedRolesAsync(int count)
         //{
-        //    if (!_userManager.SupportsUserEmail)
+        //    _applicationDbContext.Add(new IdentityUserRole<string>
         //    {
-        //        throw new NotSupportedException("The default UI requires a user store with email support.");
-        //    }
-        //    return (IUserEmailStore<IdentityUser>)_userStore;
+        //        RoleId = "2c5e174e-3b0e-446f-86af-483d56fd7210",
+        //        UserId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
+        //    });
+
+        //    await _applicationDbContext.SaveChangesAsync();
         //}
     }
 }
