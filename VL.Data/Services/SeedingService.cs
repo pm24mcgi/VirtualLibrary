@@ -32,7 +32,7 @@ namespace VL.Shared.Services
         //    _emailStore = GetEmailStore();
         //}
 
-        public SeedingService(ApplicationDbContext applicationDbContext, RoleManager<IdentityRole> roleManager, IUserStore<IdentityUser> userStore, UserManager<IdentityUser> userManager)
+        public SeedingService(ApplicationDbContext applicationDbContext, RoleManager<IdentityRole> roleManager, IUserStore<IdentityUser> userStore, IUserEmailStore<IdentityUser> emailStore, UserManager<IdentityUser> userManager)
         {
             _applicationDbContext = applicationDbContext;
             _faker = new Faker
@@ -41,7 +41,7 @@ namespace VL.Shared.Services
             };
             _roleManager = roleManager;
             _userStore = userStore;
-            _emailStore = GetEmailStore();
+            _emailStore = emailStore;
             _userManager = userManager;
         }
 
@@ -111,13 +111,13 @@ namespace VL.Shared.Services
                     $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
             }
         }
-        private IUserEmailStore<IdentityUser> GetEmailStore()
-        {
-            if (!_userManager.SupportsUserEmail)
-            {
-                throw new NotSupportedException("The default UI requires a user store with email support.");
-            }
-            return (IUserEmailStore<IdentityUser>)_userStore;
-        }
+        //private IUserEmailStore<IdentityUser> GetEmailStore()
+        //{
+        //    if (!_userManager.SupportsUserEmail)
+        //    {
+        //        throw new NotSupportedException("The default UI requires a user store with email support.");
+        //    }
+        //    return (IUserEmailStore<IdentityUser>)_userStore;
+        //}
     }
 }
