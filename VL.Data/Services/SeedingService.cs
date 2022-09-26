@@ -45,7 +45,6 @@ namespace VL.Shared.Services
                 .Generate(count);
 
             await _applicationDbContext.AddRangeAsync(books);
-
             await _applicationDbContext.SaveChangesAsync();
         }
 
