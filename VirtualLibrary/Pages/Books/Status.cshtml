@@ -39,17 +39,19 @@
 
 @if (Model.Book?.CheckedOut == false)
 {
-    <div class="confirm">
+    <form method="post" class="confirm">
+        <input type="hidden" asp-for="Book.Id"/>
         <button class="available">Check Out</button>
-    </div>
+    </form>
 }
 else
 {
     @if (User.IsInRole("Librarian"))
     {
-        <div class="confirm">
-            <button class="confirm notAvailable">Return</button>
-        </div>
+        <form method="post" class="confirm">
+            <input type="hidden" asp-for="Book.Id" />
+            <button class="notAvailable">Return</button>
+        </form>
     }
 }
 

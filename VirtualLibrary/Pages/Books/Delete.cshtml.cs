@@ -46,6 +46,7 @@ namespace VirtualLibrary.Pages.Books
             {
                 return NotFound();
             }
+
             var book = await _context.Book.FindAsync(id);
 
             if (book != null)
