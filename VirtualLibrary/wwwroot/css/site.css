@@ -18,19 +18,45 @@ body {
 }
 
 .notAvailable {
+    display: flex;
     border: 2px solid black;
     color: black;
-    background-color: red;
+    background-color: lightcoral;
     max-width: fit-content;
     padding: 5px;
     border-radius: 5px;
+    text-decoration: none;
+}
+
+.notAvailable.disabled {
+    display: flex;
+    border: none;
+    color: lightslategrey;
+    background-color: white;
+    max-width: fit-content;
+    padding: 5px;
+    text-decoration: none;
 }
 
 .available {
+    display: flex;
     border: 2px solid black;
     color: black;
-    background-color: forestgreen;
+    background-color: lightgreen;
     max-width: fit-content;
     padding: 5px;
     border-radius: 5px;
+    text-decoration: none;
+}
+
+.confirm {
+    display: inline-flex;
+    justify-content: center;
+    width: 100%;
+    /*height: 100%;*/
+}
+
+.UpdateLink {
+    display: flex;
+    justify-content: center;
 }

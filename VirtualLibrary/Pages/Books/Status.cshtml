@@ -1,20 +1,11 @@
 ﻿@page
-@model VirtualLibrary.Pages.Books.DetailsModel
+@model VirtualLibrary.Pages.Books.StatusModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Status";
 }
 
-<h1>Details</h1>
-
-@if (Model.Book?.CheckedOut == false) 
-{
-    <div class="available">Available</div>
-}
-else
-{
-    <div class="notAvailable">Checked Out</div>
-}
+<h1>Please Confirm Action</h1>
 
 <div>
     <hr />
@@ -45,10 +36,23 @@ else
         </dd>
     </dl>
 </div>
-<div>
+
+@if (Model.Book?.CheckedOut == false)
+{
+    <div class="confirm">
+        <button class="available">Check Out</button>
+    </div>
+}
+else
+{
     @if (User.IsInRole("Librarian"))
     {
-        <a asp-page="./Edit" asp-route-id="@Model.Book?.Id">Edit Details</a>
-    } | 
+        <div class="confirm">
+            <button class="confirm notAvailable">Return</button>
+        </div>
+    }
+}
+
+<div>
     <a asp-page="./Index">Back to List</a>
 </div>

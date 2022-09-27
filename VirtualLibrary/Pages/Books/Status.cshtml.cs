@@ -6,11 +6,11 @@ using VL.Shared.Model;
 
 namespace VirtualLibrary.Pages.Books
 {
-    public class DetailsModel : PageModel
+    public class StatusModel : PageModel
     {
         private readonly ApplicationDbContext _context;
 
-        public DetailsModel(ApplicationDbContext context)
+        public StatusModel(ApplicationDbContext context)
         {
             _context = context;
         }

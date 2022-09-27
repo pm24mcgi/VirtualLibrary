@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using VL.Shared.Data;
@@ -6,7 +7,6 @@ using VL.Shared.Model;
 
 namespace VirtualLibrary.Pages.Books
 {
-    //[Authorize(Roles = "Admin")]
     [Authorize]
     public class IndexModel : PageModel
     {
