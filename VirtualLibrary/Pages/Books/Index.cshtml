@@ -10,7 +10,7 @@
 @if (User.IsInRole("Librarian"))
 {
     <p>
-        <a asp-page="Create">Create New</a>
+        <a asp-page="Create">Add a book</a>
     </p>
 }
 
@@ -20,20 +20,16 @@
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Book[0].Title)
+                    Title
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Book[0].Author)
+                    Author
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Book[0].ReleaseDate)
+                    Release Date
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Book[0].CheckedOut)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Book[0].Description)
-                </th>
+                <th></th>
+                <th></th>
                 <th></th>
             </tr>
         </thead>
@@ -50,19 +46,27 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.ReleaseDate)
                     </td>
+                    @if (item.CheckedOut == false)
+                    {
+                        <td>
+                            <button class="available">Check Out</button>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <button class="notAvailable">Return</button>
+                        </td>
+                    }
                     <td>
-                        @Html.DisplayFor(modelItem => item.CheckedOut)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
+                        <a asp-page="./Details" asp-route-id="@item.Id">Details</a>
                     </td>
                     @if (User.IsInRole("Librarian"))
                     {
-                        <td>
-                            <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                            @*<a asp-page="./Details" asp-route-id="@item.Id">Details</a> |*@
-                            <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-                        </td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
                     }
                 </tr>
             }

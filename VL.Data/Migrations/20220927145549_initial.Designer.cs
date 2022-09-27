@@ -12,7 +12,7 @@ using VL.Shared.Data;
 namespace VL.Shared.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220926205247_initial")]
+    [Migration("20220927145549_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -222,7 +222,7 @@ namespace VL.Shared.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("VL.Shared.Models.Book", b =>
+            modelBuilder.Entity("VL.Shared.Model.Book", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

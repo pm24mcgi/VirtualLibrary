@@ -16,3 +16,21 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.notAvailable {
+    border: 2px solid black;
+    color: black;
+    background-color: red;
+    max-width: fit-content;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.available {
+    border: 2px solid black;
+    color: black;
+    background-color: forestgreen;
+    max-width: fit-content;
+    padding: 5px;
+    border-radius: 5px;
+}

@@ -220,7 +220,7 @@ namespace VL.Shared.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("VL.Shared.Models.Book", b =>
+            modelBuilder.Entity("VL.Shared.Model.Book", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
