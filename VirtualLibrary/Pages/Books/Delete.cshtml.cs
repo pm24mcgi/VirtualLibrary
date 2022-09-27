@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using VL.Shared.Data;
 using VL.Shared.Model;
+using Xceed.Wpf.Toolkit;
 
 namespace VirtualLibrary.Pages.Books
 {
@@ -49,7 +50,7 @@ namespace VirtualLibrary.Pages.Books
 
             var book = await _context.Book.FindAsync(id);
 
-            if (book != null)
+            if (book != null && book.CheckedOut == false)
             {
                 Book = book;
                 _context.Book.Remove(Book);
