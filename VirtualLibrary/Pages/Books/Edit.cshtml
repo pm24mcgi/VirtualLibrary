@@ -28,6 +28,11 @@
                 <input asp-for="Book.ReleaseDate" class="form-control" />
                 <span asp-validation-for="Book.ReleaseDate" class="text-danger"></span>
             </div>
+            <div class="form-group form-check hiddenField">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Book.CheckedOut" /> @Html.DisplayNameFor(model => model.Book.CheckedOut)
+                </label>
+            </div>
             <div class="form-group">
                 <label asp-for="Book.Description" class="control-label"></label>
                 <input asp-for="Book.Description" class="form-control" />
