@@ -1,9 +1,7 @@
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.EntityFrameworkCore;
 using VirtualLibrary.Extensions;
 using VL.Shared.Data;
-using VL.Shared;
 using VL.Shared.Interfaces;
 using VL.Shared.Services;
 
