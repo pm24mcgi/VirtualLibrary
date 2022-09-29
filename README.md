@@ -1,6 +1,4 @@
-# VirtualLibrary
-
-Welcome to VirtualLibrary!
+# Welcome to the VirtualLibrary!
 
 ## Technologies Used
 ![C#](https://img.shields.io/badge/c%23-%23239120.svg?style=for-the-badge&logo=c-sharp&logoColor=white)
@@ -72,7 +70,20 @@ Please use either to access the system and login, or register an account of your
 ## Library
 ![Screenshot_8](https://user-images.githubusercontent.com/99216796/193142283-b9d6ef14-1fbf-467f-9c6d-2a130f60b556.png)
 
+## Feature List
+### 1. New account creation, log in and log out
+* Users can log in and log out
+* New users can register and select their library role
+
+### 2. Books
+* Logged in users can view all books and checkout books that are available.
+* Logged in librarians can view all books, checkout books that are available and check in books that have been returned.
+* Logged in librarians can create, edit and delete books.
+
 ## Contact
 [View my GitHub](https://github.com/pm24mcgi) |
 [Connect on LinkedIn](https://www.linkedin.com/in/patrickmcginn-1358b76b/) |
 [Personal Portfolio Site](https://www.pmmcginn.com/)
+
+
+
