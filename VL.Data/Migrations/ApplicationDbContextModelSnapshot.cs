@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using VirtualLibrary.Data;
+using VL.Shared.Data;
 
 #nullable disable
 
-namespace VirtualLibrary.Migrations
+namespace VL.Shared.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -220,7 +220,7 @@ namespace VirtualLibrary.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("VirtualLibrary.Model.Book", b =>
+            modelBuilder.Entity("VL.Shared.Model.Book", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -249,80 +249,6 @@ namespace VirtualLibrary.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Book");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Author = "Author1",
-                            CheckedOut = false,
-                            Description = "This is a lovely book.",
-                            ReleaseDate = new DateTime(2008, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Book1"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Author = "Author2",
-                            CheckedOut = false,
-                            Description = "This is a lovely book.",
-                            ReleaseDate = new DateTime(2010, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Book2"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Author = "Author3",
-                            CheckedOut = false,
-                            Description = "This is a lovely book.",
-                            ReleaseDate = new DateTime(2008, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Book3"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Author = "Author4",
-                            CheckedOut = false,
-                            Description = "This is a lovely book.",
-                            ReleaseDate = new DateTime(2011, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Book4"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Author = "Author5",
-                            CheckedOut = false,
-                            Description = "This is a lovely book.",
-                            ReleaseDate = new DateTime(1992, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Book5"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Author = "Author6",
-                            CheckedOut = false,
-                            Description = "This is a lovely book.",
-                            ReleaseDate = new DateTime(1964, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Book6"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Author = "Author7",
-                            CheckedOut = false,
-                            Description = "This is a lovely book.",
-                            ReleaseDate = new DateTime(2020, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Book7"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Author = "Author8",
-                            CheckedOut = false,
-                            Description = "This is a lovely book.",
-                            ReleaseDate = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Book8"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

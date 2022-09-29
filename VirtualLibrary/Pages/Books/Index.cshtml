@@ -7,61 +7,74 @@
 
 <h1>Library</h1>
 
-@if (User.IsInRole("Admin")) 
+@if (User.IsInRole("Librarian"))
 {
     <p>
-        <a asp-page="Create">Create New</a>
+        <a asp-page="Create">Add a book</a>
     </p>
 }
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Book[0].Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Book[0].Author)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Book[0].ReleaseDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Book[0].CheckedOut)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Book[0].Description)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Book) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Author)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReleaseDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CheckedOut)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            @if (User.IsInRole("Admin")) 
+@if ((User.IsInRole("User")) || (User.IsInRole("Librarian")))
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Title
+                </th>
+                <th>
+                    Author
+                </th>
+                <th>
+                    Release Date
+                </th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Book)
             {
-                <td>
-                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-    @*                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |*@
-                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Author)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReleaseDate)
+                    </td>
+                    @if (item.CheckedOut == false)
+                    {
+                        <td class="UpdateLink">
+                            <a class="available" asp-page="./Status" asp-route-id="@item.Id">Checkout</a>
+                        </td>
+                    }
+                    else
+                    {
+                        @if (User.IsInRole("Librarian"))
+                        {
+                            <td class="UpdateLink">
+                                <a class="notAvailable" asp-page="./Status" asp-route-id="@item.Id">Return</a>
+                            </td>
+                        }
+                        @if (User.IsInRole("User"))
+                        {
+                            <td class="UpdateLink">
+                                <div class="notAvailable disabled">Not Available</div>
+                            </td>
+                        }
+                    }
+                    @if (User.IsInRole("Librarian"))
+                    {
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                    }
+                </tr>
             }
-        </tr>
+        </tbody>
+    </table>
 }
-    </tbody>
-</table>

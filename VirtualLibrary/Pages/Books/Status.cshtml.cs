@@ -1,19 +1,16 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using VL.Shared.Data;
 using VL.Shared.Model;
-using Xceed.Wpf.Toolkit;
 
 namespace VirtualLibrary.Pages.Books
 {
-    [Authorize(Roles = "Librarian")]
-    public class DeleteModel : PageModel
+    public class StatusModel : PageModel
     {
         private readonly ApplicationDbContext _context;
 
-        public DeleteModel(ApplicationDbContext context)
+        public StatusModel(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -29,7 +26,6 @@ namespace VirtualLibrary.Pages.Books
             }
 
             var book = await _context.Book.FirstOrDefaultAsync(m => m.Id == id);
-
             if (book == null)
             {
                 return NotFound();
@@ -52,8 +48,15 @@ namespace VirtualLibrary.Pages.Books
 
             if (book != null && book.CheckedOut == false)
             {
+
                 Book = book;
-                _context.Book.Remove(Book);
+                Book.CheckedOut = true;
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                Book = book;
+                Book.CheckedOut = false;
                 await _context.SaveChangesAsync();
             }
 

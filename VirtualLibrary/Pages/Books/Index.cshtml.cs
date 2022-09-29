@@ -1,28 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using VirtualLibrary.Data;
-using VirtualLibrary.Model;
+using VL.Shared.Data;
+using VL.Shared.Model;
 
 namespace VirtualLibrary.Pages.Books
 {
-    //[Authorize(Roles = "Admin")]
     [Authorize]
     public class IndexModel : PageModel
     {
-        private readonly VirtualLibrary.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public IndexModel(VirtualLibrary.Data.ApplicationDbContext context)
+        public IndexModel(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public IList<Book> Book { get;set; } = default!;
+        public IList<Book> Book { get; set; } = default!;
 
         public async Task OnGetAsync()
         {

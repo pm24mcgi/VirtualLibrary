@@ -1,24 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using VirtualLibrary.Data;
-using VirtualLibrary.Model;
+using VL.Shared.Data;
+using VL.Shared.Model;
 
 namespace VirtualLibrary.Pages.Books
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Librarian")]
     public class EditModel : PageModel
     {
-        private readonly VirtualLibrary.Data.ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public EditModel(VirtualLibrary.Data.ApplicationDbContext context)
+        public EditModel(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -33,7 +27,7 @@ namespace VirtualLibrary.Pages.Books
                 return NotFound();
             }
 
-            var book =  await _context.Book.FirstOrDefaultAsync(m => m.Id == id);
+            var book = await _context.Book.FirstOrDefaultAsync(m => m.Id == id);
             if (book == null)
             {
                 return NotFound();
@@ -74,7 +68,7 @@ namespace VirtualLibrary.Pages.Books
 
         private bool BookExists(int id)
         {
-          return _context.Book.Any(e => e.Id == id);
+            return _context.Book.Any(e => e.Id == id);
         }
     }
 }

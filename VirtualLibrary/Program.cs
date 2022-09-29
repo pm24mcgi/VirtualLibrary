@@ -1,8 +1,11 @@
 using Microsoft.EntityFrameworkCore;
-using VirtualLibrary.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
-using VL.Utility;
+using VirtualLibrary.Extensions;
+using VL.Shared.Data;
+using VL.Shared;
+using VL.Shared.Interfaces;
+using VL.Shared.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,12 +13,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")
-    ));
+));
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
-builder.Services.AddSingleton<IEmailSender, EmailSender>();
+
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/Identity/Account/Login";
@@ -23,7 +26,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.AccessDeniedPath = "/Identity/Account/AccessDenied";
 });
 
-//builder.Services.AddScoped<IDbInitializer, DbInitializer>();
+builder.Services.AddScoped<ISeedingService, SeedingService>();
 
 var app = builder.Build();
 
@@ -35,7 +38,12 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-//SeedDatabase();
+await app.MigrateDatabasesAsync();
+
+if (app.Environment.IsDevelopment())
+{
+    await app.SeedDataAsync();
+}
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -48,12 +56,3 @@ app.UseAuthorization();
 app.MapRazorPages();
 
 app.Run();
-
-//void SeedDatabase()
-//{
-//    using (var scope = app.Services.CreateScope())
-//    {
-//        var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
-//        dbInitializer.Initialize();
-//    }
-//}
