@@ -1,7 +1,10 @@
-﻿namespace VL.Shared.Interfaces
+﻿using VL.Shared.Data;
+using VL.Shared.Model;
+
+namespace VL.Shared.Interfaces
 {
     public interface IBookService
     {
-        Task ProvideApplicationDbContext();
+        public Task<ApplicationDbContext> ProvideApplicationDbContext();
     }
 }

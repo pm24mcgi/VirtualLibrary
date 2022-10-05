@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using VL.Shared.Data;
+using VL.Shared.Interfaces;
 using VL.Shared.Model;
 
 namespace VLApi.Controllers
@@ -9,25 +10,27 @@ namespace VLApi.Controllers
     [ApiController]
     public class BooksController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IBookService _bookService;
 
-        public BooksController(ApplicationDbContext context)
+        public BooksController(IBookService bookService)
         {
-            _context = context;
+            _bookService = bookService;
         }
 
         // GET: api/Books
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Book>>> GetBooks()
         {
-            return await _context.Book.ToListAsync();
+            var context = await _bookService.ProvideApplicationDbContext();
+            return await context.Book.ToListAsync();
         }
 
-        // GET: api/Books/5
+        // GET: api/Books/{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<Book>> GetBook(int id)
         {
-            var book = await _context.Book.FindAsync(id);
+            var context = await _bookService.ProvideApplicationDbContext();
+            var book = await context.Book.FindAsync(id);
 
             if (book == null)
             {
@@ -37,67 +40,52 @@ namespace VLApi.Controllers
             return book;
         }
 
-        // PUT: api/Books/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // PUT: api/Books/{id}
+        // ****Change to patch****
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutBook(int id, Book book)
+        public async Task<IActionResult> EditBook(int id, Book book)
         {
+            var context = await _bookService.ProvideApplicationDbContext();
             if (id != book.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(book).State = EntityState.Modified;
+            context.Entry(book).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BookExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await context.SaveChangesAsync();
 
             return NoContent();
         }
 
         // POST: api/Books
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        //[HttpPost("{id}")]
+        //public async Task<ActionResult<Book>> PostBook([FromRoute] int id, [FromBody] Book book)
         [HttpPost]
-        public async Task<ActionResult<Book>> PostBook(Book book)
+        public async Task<ActionResult<Book>> CreateBook(Book book)
         {
-            _context.Book.Add(book);
-            await _context.SaveChangesAsync();
+            var context = await _bookService.ProvideApplicationDbContext();
+            context.Book.Add(book);
+            await context.SaveChangesAsync();
 
             return CreatedAtAction("GetBook", new { id = book.Id }, book);
         }
 
-        // DELETE: api/Books/5
+        // DELETE: api/Books/{id}
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBook(int id)
         {
-            var book = await _context.Book.FindAsync(id);
+            var context = await _bookService.ProvideApplicationDbContext();
+            var book = await context.Book.FindAsync(id);
             if (book == null)
             {
                 return NotFound();
             }
 
-            _context.Book.Remove(book);
-            await _context.SaveChangesAsync();
+            context.Book.Remove(book);
+            await context.SaveChangesAsync();
 
             return NoContent();
-        }
-
-        private bool BookExists(int id)
-        {
-            return _context.Book.Any(e => e.Id == id);
         }
     }
 }
