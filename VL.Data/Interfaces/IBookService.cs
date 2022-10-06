@@ -1,10 +1,16 @@
-﻿using VL.Shared.Data;
-using VL.Shared.Model;
+﻿using VL.Shared.Model;
 
 namespace VL.Shared.Interfaces
 {
     public interface IBookService
     {
-        public Task<ApplicationDbContext> ProvideApplicationDbContext();
+        public Task<List<Book>> GetBooksAsync();
+        public Task<Book?> GetBookAsync(int id);
+
+        public Task<Book?> UpdateBookAsync(Book book);
+
+        public Task<Book> CreateBookAsync(Book book);
+
+        public Task<int> DeleteBookAsync(int id);
     }
 }

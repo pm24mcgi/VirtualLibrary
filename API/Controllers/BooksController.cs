@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using VL.Shared.Data;
 using VL.Shared.Interfaces;
 using VL.Shared.Model;
+using static System.Reflection.Metadata.BlobBuilder;
 
-namespace VLApi.Controllers
+namespace API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/vl")]
     [ApiController]
     public class BooksController : ControllerBase
     {
@@ -26,10 +28,9 @@ namespace VLApi.Controllers
         [ProducesDefaultResponseType]
         public async Task<IActionResult> GetBooks()
         {
-            var context = await _bookService.ProvideApplicationDbContext();
-            var result = await context.Book.ToListAsync();
-
-            return Ok(result);
+            var books = await _bookService.GetBooksAsync();
+            if (books == null) return BadRequest();
+            return Ok(books);
         }
 
         /// <summary>
@@ -40,15 +41,9 @@ namespace VLApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Book>> GetBook(int id)
         {
-            var context = await _bookService.ProvideApplicationDbContext();
-            var book = await context.Book.FindAsync(id);
-
-            if (book == null)
-            {
-                return NotFound();
-            }
-
-            return book;
+            var book = await _bookService.GetBookAsync(id);
+            if (book == null) return BadRequest();
+            return Ok(book);
         }
 
         /// <summary>
@@ -62,19 +57,10 @@ namespace VLApi.Controllers
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> UpdateBook(int id, Book book)
+        public async Task<IActionResult> UpdateBook(Book book)
         {
-            var context = await _bookService.ProvideApplicationDbContext();
-            if (id != book.Id)
-            {
-                return BadRequest();
-            }
-
-            context.Entry(book).State = EntityState.Modified;
-
-            var result = await context.SaveChangesAsync();
-
-            return Ok();
+            var bookUpdate = await _bookService.UpdateBookAsync(book);
+            return Ok(bookUpdate);
         }
 
         /// <summary>
@@ -87,11 +73,9 @@ namespace VLApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Book>> CreateBook(Book book)
         {
-            var context = await _bookService.ProvideApplicationDbContext();
-            context.Book.Add(book);
-            await context.SaveChangesAsync();
-
-            return CreatedAtAction("GetBook", new { id = book.Id }, book);
+            var newBook = await _bookService.CreateBookAsync(book);
+            if (newBook == null) return BadRequest();
+            return Ok(newBook);
         }
 
         /// <summary>
@@ -105,15 +89,8 @@ namespace VLApi.Controllers
         [ProducesDefaultResponseType]
         public async Task<IActionResult> DeleteBook(int id)
         {
-            var context = await _bookService.ProvideApplicationDbContext();
-            //context.Book.Where(id)
-
-            //Book book = new Book() { Id = id };
-            //context.Book.Attach(book);
-            //context.Book.Remove(book);
-            //context.SaveChanges();
-
-            return NoContent();
+            var bookId = await _bookService.DeleteBookAsync(id);
+            return Ok(bookId);
         }
     }
 }

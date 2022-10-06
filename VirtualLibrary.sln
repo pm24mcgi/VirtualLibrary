@@ -12,7 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VLApi", "VLApi\VLApi.csproj", "{F70A74EB-045D-4F78-B4C9-D7CE80C198BC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{6ECB6393-1131-42E8-9E09-129D3036FB26}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,10 +28,10 @@ Global
 		{953E9F01-827F-48F1-98E7-F8B5F8B028C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{953E9F01-827F-48F1-98E7-F8B5F8B028C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{953E9F01-827F-48F1-98E7-F8B5F8B028C7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F70A74EB-045D-4F78-B4C9-D7CE80C198BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F70A74EB-045D-4F78-B4C9-D7CE80C198BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F70A74EB-045D-4F78-B4C9-D7CE80C198BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F70A74EB-045D-4F78-B4C9-D7CE80C198BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6ECB6393-1131-42E8-9E09-129D3036FB26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6ECB6393-1131-42E8-9E09-129D3036FB26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6ECB6393-1131-42E8-9E09-129D3036FB26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6ECB6393-1131-42E8-9E09-129D3036FB26}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
