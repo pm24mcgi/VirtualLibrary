@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using VL.Shared.Data;
 using VL.Shared.Interfaces;
 using VL.Shared.Model;
-using static System.Reflection.Metadata.BlobBuilder;
 
 namespace API.Controllers
 {
