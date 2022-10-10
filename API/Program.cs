@@ -29,6 +29,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<ISeedingService, SeedingService>();
 builder.Services.AddScoped<IBookService, BookService>();
 

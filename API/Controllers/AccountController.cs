@@ -1,6 +1,5 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using VL.Shared.Interfaces;
 using VL.Shared.Model;
 
 namespace API.Controllers
@@ -9,23 +8,15 @@ namespace API.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ILogger<AccountController> _logger;
-        private readonly IMapper _mapper;
+        private readonly IAccountService _accountService;
 
-        public AccountController(UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
-            RoleManager<IdentityRole> roleManager,
+        public AccountController(
             ILogger<AccountController> logger,
-            IMapper mapper)
+            IAccountService accountService)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _roleManager = roleManager;
             _logger = logger;
-            _mapper = mapper;
+            _accountService = accountService;
         }
 
         [HttpPost]
@@ -43,8 +34,7 @@ namespace API.Controllers
 
             try
             {
-                var user = _mapper.Map<IdentityUser>(userDTO);
-                var result = await _userManager.CreateAsync(user);
+                var result = await _accountService.Register(userDTO);
 
                 if (!result.Succeeded)
                 {
@@ -75,10 +65,7 @@ namespace API.Controllers
 
             try
             {
-                var result = await _signInManager.PasswordSignInAsync(userDTO.Email,
-                    userDTO.Password,
-                    false,
-                    false);
+                var result = await _accountService.Login(userDTO);
 
                 if (!result.Succeeded)
                 {
