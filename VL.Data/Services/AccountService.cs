@@ -73,12 +73,11 @@ namespace VL.Shared.Services
 
             List<Claim> claims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier, user.UserName)
-                //new Claim(ClaimTypes.Role, role.Name)
+                new Claim(ClaimTypes.NameIdentifier, user.Id),
+                new Claim(ClaimTypes.Name, user.UserName)
             };
 
-            var secret = "This is my secret key that should be in app settings";
-            //var secret = _configuration.GetSection("JWT").Value;
+            var secret = _configuration["Authentication:SecretKey"];
 
             var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(secret));
 

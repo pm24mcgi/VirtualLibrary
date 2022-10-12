@@ -29,7 +29,6 @@ builder.Services.AddScoped<ISeedingService, SeedingService>();
 builder.Services.AddScoped<IBookService, BookService>();
 
 builder.Services.AddEndpointsApiExplorer();
-//builder.Services.AddSwaggerGen();
 builder.Services.AddSwaggerGen(options =>
 {
     options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
