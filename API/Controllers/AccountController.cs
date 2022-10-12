@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using VL.Shared.Interfaces;
 using VL.Shared.Model;
 
 namespace API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/account")]
     [ApiController]
     public class AccountController : ControllerBase
     {
@@ -19,6 +20,8 @@ namespace API.Controllers
             _accountService = accountService;
         }
 
+        public static IdentityUser user = new IdentityUser();
+
         [HttpPost]
         [Route("register")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
@@ -27,10 +30,6 @@ namespace API.Controllers
         public async Task<IActionResult> Register([FromBody] UserDTO userDTO)
         {
             _logger.LogInformation($"Registration Attempt for {userDTO.Email}");
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
 
             try
             {
@@ -67,12 +66,12 @@ namespace API.Controllers
             {
                 var result = await _accountService.Login(userDTO);
 
-                if (!result.Succeeded)
+                if (result.Length == 0)
                 {
                     return Unauthorized();
                 }
 
-                return Accepted();
+                return Content(result);
             }
             catch (Exception exception)
             {

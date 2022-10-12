@@ -11,6 +11,6 @@ namespace VL.Shared.Interfaces
 
         public Task<Book> CreateBookAsync(Book book);
 
-        public Task<int> DeleteBookAsync(int id);
+        public Task<bool> DeleteBookAsync(int id);
     }
 }

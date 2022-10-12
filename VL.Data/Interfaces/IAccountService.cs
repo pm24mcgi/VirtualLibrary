@@ -11,6 +11,6 @@ namespace VL.Shared.Interfaces
     public interface IAccountService
     {
         Task<IdentityResult> Register(UserDTO userDTO);
-        Task<SignInResult> Login(LoginDTO userDTO);
+        Task<string> Login(LoginDTO userDTO);
     }
 }

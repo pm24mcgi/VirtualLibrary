@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using VL.Shared.Interfaces;
 using VL.Shared.Model;
 
 namespace API.Controllers
 {
+    [Authorize]
     [Route("api/vl")]
     [ApiController]
     public class BooksController : ControllerBase
@@ -14,6 +16,7 @@ namespace API.Controllers
         {
             _bookService = bookService;
         }
+
 
         /// <summary>
         /// GET: api/Books
@@ -49,7 +52,6 @@ namespace API.Controllers
         /// <param name="id"></param>
         /// <param name="book"></param>
         /// <returns></returns>
-        // ****Change to patch****
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
@@ -86,8 +88,16 @@ namespace API.Controllers
         [ProducesDefaultResponseType]
         public async Task<IActionResult> DeleteBook(int id)
         {
-            var bookId = await _bookService.DeleteBookAsync(id);
-            return Ok(bookId);
+            var result = await _bookService.DeleteBookAsync(id);
+
+            if (result)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
     }
 }

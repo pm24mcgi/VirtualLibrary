@@ -27,9 +27,17 @@ namespace VL.Shared.Services
 
         public async Task<Book?> UpdateBookAsync(Book book)
         {
-            _applicationDbContext.Entry(book).State = EntityState.Modified;
+            var bookUpdate = new Book();
+            {
+                bookUpdate.Id = book.Id;
+                bookUpdate.Title = book.Title;
+                bookUpdate.Description = book.Description;
+                bookUpdate.Author = book.Author;
+            }
+
+            _applicationDbContext.Book.Update(bookUpdate);
             await _applicationDbContext.SaveChangesAsync();
-            return await GetBookAsync(book.Id);
+            return bookUpdate;
         }
 
         public async Task<Book> CreateBookAsync(Book book)
@@ -39,13 +47,21 @@ namespace VL.Shared.Services
             return book;
         }
 
-        public async Task<int> DeleteBookAsync(int id)
+        public async Task<bool> DeleteBookAsync(int id)
         {
-            var book = new Book { Id = id };
-            _applicationDbContext.Book.Attach(book);
-            _applicationDbContext.Book.Remove(book);
-            await _applicationDbContext.SaveChangesAsync();
-            return id;
+            var bookDelete = new Book
+            {
+                Id = id
+            };
+
+            _applicationDbContext.Book.Remove(bookDelete);
+            var result = await _applicationDbContext.SaveChangesAsync();
+
+            if (result > 0)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
