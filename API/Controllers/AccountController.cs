@@ -66,7 +66,7 @@ namespace API.Controllers
             {
                 var result = await _accountService.Login(userDTO);
 
-                if (result.Length == 0)
+                if (result.Contains("Login failed"))
                 {
                     return Unauthorized();
                 }

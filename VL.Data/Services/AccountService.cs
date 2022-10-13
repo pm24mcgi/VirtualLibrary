@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Runtime.InteropServices;
 using System.Security.Claims;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
 using VL.Shared.Data;
 using VL.Shared.Interfaces;
 using VL.Shared.Model;
@@ -56,41 +60,71 @@ namespace VL.Shared.Services
                     false,
                     false);
 
-            var user = await _userManager.FindByEmailAsync(userDTO.Email);
-            //var userObj = await _userManager.FindByIdAsync(user.Id);
-            //var role = await _userManager.GetRolesAsync(userObj.Id).FirstOrDefault();
-            //var role = await _userManager.GetRolesAsync(user);
-            //var role = await _roleManager.GetClaimsAsync();
+            if (!result.Succeeded)
+            {
+                return "Login failed";
+            }
 
-            string jwt = CreateToken(user);
-            //string jwt = CreateToken(user, role);
+            var user = await _userManager.FindByEmailAsync(userDTO.Email);
+            var role = _userManager.GetRolesAsync(user).Result[0];
+
+            var jwt = CreateToken(user, role);
             return jwt;
+
         }
 
-        private string CreateToken(IdentityUser user)
-        //private string CreateToken(IdentityUser user, IdentityRole role)
+        private string CreateToken(IdentityUser user, string role)
         {
 
-            List<Claim> claims = new List<Claim>
+            List<Claim> claims = new()
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id),
-                new Claim(ClaimTypes.Name, user.UserName)
+                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.Role, role)
             };
 
             var secret = _configuration["Authentication:SecretKey"];
 
-            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(secret));
+            var byteArray = Encoding.ASCII.GetBytes(secret);
 
-            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+            var signingKey = new SymmetricSecurityKey(byteArray);
+            var signingCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
                 claims: claims,
+                issuer: _configuration["Authentication:Issuer"],
+                audience: _configuration["Authentication:Audience"],
                 expires: DateTime.Now.AddHours(1),
-                signingCredentials: credentials);
+                signingCredentials: signingCredentials);
 
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);
 
             return jwt;
         }
+
+        //private string CreateToken(IdentityUser user)
+        //{
+
+        //    List<Claim> claims = new List<Claim>
+        //    {
+        //        new Claim(ClaimTypes.NameIdentifier, user.Id),
+        //        new Claim(ClaimTypes.Name, user.UserName)
+        //    };
+
+        //    var secret = _configuration["Authentication:SecretKey"];
+
+        //    var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secret));
+
+        //    var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+
+        //    var token = new JwtSecurityToken(
+        //        claims: claims,
+        //        expires: DateTime.Now.AddHours(1),
+        //        signingCredentials: credentials);
+
+        //    var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+
+        //    return jwt;
+        //}
     }
 }

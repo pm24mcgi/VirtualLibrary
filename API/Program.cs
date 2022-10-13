@@ -59,15 +59,24 @@ builder.Services
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
-            ValidateAudience = true,
             ValidateIssuerSigningKey = true,
+            ValidateAudience = true,
             ValidIssuer = builder.Configuration["Authentication:Issuer"],
-            ValidAudience = builder.Configuration["Authentication:Audience"],
             IssuerSigningKey = new SymmetricSecurityKey(
                 Encoding.UTF8
-                    .GetBytes(builder.Configuration["Authentication:SecretKey"]))
+                    .GetBytes(builder.Configuration["Authentication:SecretKey"])),
+            ValidAudience = builder.Configuration["Authentication:Audience"]
         };
     });
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("PowerUser", policy =>
+        policy.RequireRole("Librarian"));
+
+    options.AddPolicy("BasicUser", policy =>
+        policy.RequireRole("User", "Librarian"));
+});
 
 var app = builder.Build();
 
