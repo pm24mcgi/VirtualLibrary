@@ -35,7 +35,7 @@ namespace VL.Shared.Services
             _applicationDbContext = applicationDbContext;
         }
 
-        public async Task<IdentityResult> Register(UserDto userDto)
+        public async Task<IdentityResult> RegisterAsync(UserDto userDto)
         {
             var user = new IdentityUser
             {
@@ -52,7 +52,7 @@ namespace VL.Shared.Services
             return userResult;
         }
 
-        public async Task<string> Login(LoginDto userDto)
+        public async Task<string> LoginAsync(LoginDto userDto)
         {
             var result = await _signInManager.PasswordSignInAsync(userDto.Email,
                 userDto.Password,

@@ -57,11 +57,7 @@ namespace VL.Shared.Services
             _applicationDbContext.Book.Remove(bookDelete);
             var result = await _applicationDbContext.SaveChangesAsync();
 
-            if (result > 0)
-            {
-                return true;
-            }
-            return false;
+            return result > 0;
         }
     }
 }

@@ -26,31 +26,35 @@ namespace API.Controllers
         [Route("register")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
         public async Task<IActionResult> Register([FromBody] UserDto userDto)
         {
             _logger.LogInformation($"Registration Attempt for {userDto.Email}");
 
-            var result = await _accountService.Register(userDto);
+            var result = await _accountService.RegisterAsync(userDto);
 
             if (!result.Succeeded)
             {
                 return BadRequest();
             }
 
-            return Accepted();
-            }
+            await Login(userDto);
+
+            return Ok();
+        }
 
         [HttpPost]
         [Route("login")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
         public async Task<IActionResult> Login([FromBody] LoginDto userDto)
         {
             _logger.LogInformation($"Login Attempt for {userDto.Email}");
 
-            var result = await _accountService.Login(userDto);
+            var result = await _accountService.LoginAsync(userDto);
 
             if (result.Contains("Login failed"))
             {
