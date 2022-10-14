@@ -12,7 +12,7 @@ internal static class DbInitializerExtension
         var applicationDbContext = scope.ServiceProvider.GetService<ApplicationDbContext>();
         var services = scope.ServiceProvider;
         var migrateService = services.GetRequiredService<IMigrateService>();
-        var result = await migrateService.CheckRoles();
+        var result = await migrateService.HasRolesAsync();
         if (!result)
         {
             await applicationDbContext!.Database.MigrateAsync();

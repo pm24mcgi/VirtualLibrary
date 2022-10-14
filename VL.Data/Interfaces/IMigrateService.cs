@@ -2,6 +2,6 @@
 {
     public interface IMigrateService
     {
-        Task<bool> CheckRoles();
+        Task<bool> HasRolesAsync();
     }
 }

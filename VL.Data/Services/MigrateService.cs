@@ -17,7 +17,7 @@ namespace VL.Shared.Services
             _roleManager = roleManager;
         }
 
-        public async Task<bool> CheckRoles()
+        public async Task<bool> HasRolesAsync()
         {
             if (await _applicationDbContext.Roles.AnyAsync())
             {

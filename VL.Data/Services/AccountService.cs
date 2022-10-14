@@ -22,7 +22,6 @@ namespace VL.Shared.Services
         private readonly IConfiguration _configuration;
         private readonly ApplicationDbContext _applicationDbContext;
 
-
         public AccountService(UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
             RoleManager<IdentityRole> roleManager,
@@ -36,36 +35,36 @@ namespace VL.Shared.Services
             _applicationDbContext = applicationDbContext;
         }
 
-        public async Task<IdentityResult> Register(UserDTO userDTO)
+        public async Task<IdentityResult> Register(UserDto userDto)
         {
             var user = new IdentityUser
             {
-                UserName = userDTO.Email,
-                Email = userDTO.Email
+                UserName = userDto.Email,
+                Email = userDto.Email
             };
 
-            var userResult = await _userManager.CreateAsync(user, userDTO.Password);
+            var userResult = await _userManager.CreateAsync(user, userDto.Password);
 
             if (userResult.Succeeded)
             {
-                await _userManager.AddToRoleAsync(user, userDTO.Role);
+                await _userManager.AddToRoleAsync(user, userDto.Role);
             }
             return userResult;
         }
 
-        public async Task<string> Login(LoginDTO userDTO)
+        public async Task<string> Login(LoginDto userDto)
         {
-            var result = await _signInManager.PasswordSignInAsync(userDTO.Email,
-                    userDTO.Password,
-                    false,
-                    false);
+            var result = await _signInManager.PasswordSignInAsync(userDto.Email,
+                userDto.Password,
+                false,
+                false);
 
             if (!result.Succeeded)
             {
                 return "Login failed";
             }
 
-            var user = await _userManager.FindByEmailAsync(userDTO.Email);
+            var user = await _userManager.FindByEmailAsync(userDto.Email);
             var role = _userManager.GetRolesAsync(user).Result[0];
 
             var jwt = CreateToken(user, role);
@@ -101,30 +100,5 @@ namespace VL.Shared.Services
 
             return jwt;
         }
-
-        //private string CreateToken(IdentityUser user)
-        //{
-
-        //    List<Claim> claims = new List<Claim>
-        //    {
-        //        new Claim(ClaimTypes.NameIdentifier, user.Id),
-        //        new Claim(ClaimTypes.Name, user.UserName)
-        //    };
-
-        //    var secret = _configuration["Authentication:SecretKey"];
-
-        //    var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secret));
-
-        //    var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
-
-        //    var token = new JwtSecurityToken(
-        //        claims: claims,
-        //        expires: DateTime.Now.AddHours(1),
-        //        signingCredentials: credentials);
-
-        //    var jwt = new JwtSecurityTokenHandler().WriteToken(token);
-
-        //    return jwt;
-        //}
     }
 }

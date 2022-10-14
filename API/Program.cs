@@ -71,10 +71,10 @@ builder.Services
 
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("PowerUser", policy =>
+    options.AddPolicy("IsLibrarian", policy =>
         policy.RequireRole("Librarian"));
 
-    options.AddPolicy("BasicUser", policy =>
+    options.AddPolicy("IsAllUsers", policy =>
         policy.RequireRole("User", "Librarian"));
 });
 

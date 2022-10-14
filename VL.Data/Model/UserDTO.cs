@@ -2,7 +2,7 @@
 
 namespace VL.Shared.Model
 {
-    public class LoginDTO
+    public class LoginDto
     {
         [Required]
         [EmailAddress]
@@ -17,7 +17,7 @@ namespace VL.Shared.Model
 
     }
 
-    public class UserDTO : LoginDTO
+    public class UserDto : LoginDto
     {
         public string Role { get; set; } = string.Empty;
     }

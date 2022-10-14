@@ -27,57 +27,37 @@ namespace API.Controllers
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> Register([FromBody] UserDTO userDTO)
+        public async Task<IActionResult> Register([FromBody] UserDto userDto)
         {
-            _logger.LogInformation($"Registration Attempt for {userDTO.Email}");
+            _logger.LogInformation($"Registration Attempt for {userDto.Email}");
 
-            try
+            var result = await _accountService.Register(userDto);
+
+            if (!result.Succeeded)
             {
-                var result = await _accountService.Register(userDTO);
-
-                if (!result.Succeeded)
-                {
-                    return BadRequest();
-                }
-
-                return Accepted();
+                return BadRequest();
             }
-            catch (Exception exception)
-            {
-                _logger.LogError(exception, "Registration Error");
-                return StatusCode(500, "Registration error, please try again");
+
+            return Accepted();
             }
-        }
 
         [HttpPost]
         [Route("login")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> Login([FromBody] LoginDTO userDTO)
+        public async Task<IActionResult> Login([FromBody] LoginDto userDto)
         {
-            _logger.LogInformation($"Login Attempt for {userDTO.Email}");
-            if (!ModelState.IsValid)
+            _logger.LogInformation($"Login Attempt for {userDto.Email}");
+
+            var result = await _accountService.Login(userDto);
+
+            if (result.Contains("Login failed"))
             {
-                return BadRequest(ModelState);
+                return Unauthorized();
             }
 
-            try
-            {
-                var result = await _accountService.Login(userDTO);
-
-                if (result.Contains("Login failed"))
-                {
-                    return Unauthorized();
-                }
-
-                return Content(result);
-            }
-            catch (Exception exception)
-            {
-                _logger.LogError(exception, "Login Error");
-                return StatusCode(500, "Login error, please try again");
-            }
+            return Content(result);
         }
     }
 }
