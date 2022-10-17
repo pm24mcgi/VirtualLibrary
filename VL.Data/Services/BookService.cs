@@ -29,7 +29,7 @@ namespace VL.Shared.Services
         {
             var bookUpdate = new Book();
             {
-                bookUpdate.Id = book.Id;
+                Id = book.Id;
                 bookUpdate.Title = book.Title;
                 bookUpdate.Description = book.Description;
                 bookUpdate.Author = book.Author;
