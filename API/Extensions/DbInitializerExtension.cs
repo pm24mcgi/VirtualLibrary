@@ -10,14 +10,8 @@ internal static class DbInitializerExtension
     {
         var scope = app.Services.CreateScope();
         var applicationDbContext = scope.ServiceProvider.GetService<ApplicationDbContext>();
-        var services = scope.ServiceProvider;
-        var migrateService = services.GetRequiredService<IMigrateService>();
-        var result = await migrateService.HasRolesAsync();
-        if (!result)
-        {
-            await applicationDbContext!.Database.MigrateAsync();
+        await applicationDbContext!.Database.MigrateAsync();
         }
-    }
 
     public static async Task SeedDataAsync(this WebApplication app)
     {
