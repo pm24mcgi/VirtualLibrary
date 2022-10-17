@@ -59,7 +59,7 @@ namespace API.Controllers
                 return Unauthorized();
             }
 
-            var jwt = _tokenService.GenerateTokenAsync(userDto);
+            var jwt = await _tokenService.GenerateTokenAsync(userDto);
             return Ok(jwt);
         }
     }
