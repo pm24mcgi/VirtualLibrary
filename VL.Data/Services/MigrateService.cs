@@ -8,13 +8,10 @@ namespace VL.Shared.Services
     public class MigrateService : IMigrateService
     {
         private readonly ApplicationDbContext _applicationDbContext;
-        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public MigrateService(ApplicationDbContext applicationDbContext,
-            RoleManager<IdentityRole> roleManager)
+        public MigrateService(ApplicationDbContext applicationDbContext)
         {
             _applicationDbContext = applicationDbContext;
-            _roleManager = roleManager;
         }
 
         public async Task<bool> HasRolesAsync()

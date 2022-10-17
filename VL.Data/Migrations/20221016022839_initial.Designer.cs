@@ -12,7 +12,7 @@ using VL.Shared.Data;
 namespace VL.Shared.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221005141745_initial")]
+    [Migration("20221016022839_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

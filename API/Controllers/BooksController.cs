@@ -24,13 +24,8 @@ namespace API.Controllers
         /// </summary>
         /// <returns>A list of books</returns>
         [HttpGet]
-        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status408RequestTimeout)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
 
         [ProducesDefaultResponseType]
         public async Task<IActionResult> GetBooks()
@@ -46,13 +41,8 @@ namespace API.Controllers
         /// <param name="id"></param>
         /// <returns>A book by id</returns>
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status408RequestTimeout)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Book>> GetBook(int id)
         {
             var book = await _bookService.GetBookAsync(id);
@@ -65,15 +55,10 @@ namespace API.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <param name="book"></param>
-        /// <returns></returns>
+        /// <returns>Edit a book by id</returns>
         [HttpPut("{id}"), Authorize("IsLibrarian")]
-        [ProducesResponseType(typeof(bool), StatusCodes.Status202Accepted)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status408RequestTimeout)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status202Accepted)]
+
         public async Task<IActionResult> UpdateBook(Book book)
         {
             var bookUpdate = await _bookService.UpdateBookAsync(book);
@@ -84,15 +69,10 @@ namespace API.Controllers
         /// Create a book
         /// </summary>
         /// <param name="book"></param>
-        /// <returns></returns>
+        /// <returns>Create a new book</returns>
         [HttpPost, Authorize("IsLibrarian")]
-        [ProducesResponseType(typeof(bool), StatusCodes.Status201Created)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status408RequestTimeout)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+
         public async Task<CreatedResult> CreateBook(Book book)
         {
             var newBook = await _bookService.CreateBookAsync(book);
@@ -103,15 +83,11 @@ namespace API.Controllers
         /// Delete a book by id
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
+        /// <returns>Delete a book by id</returns>
         [HttpDelete("{id}"), Authorize("IsLibrarian")]
-        [ProducesResponseType(typeof(bool), StatusCodes.Status202Accepted)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status408RequestTimeout)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status202Accepted)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
         public async Task<IActionResult> DeleteBook(int id)
         {
             var result = await _bookService.DeleteBookAsync(id);
@@ -120,10 +96,7 @@ namespace API.Controllers
             {
                 return Accepted("Book was successfully deleted");
             }
-            else
-            {
-                return NotFound();
-            }
+            return NotFound();
         }
     }
 }

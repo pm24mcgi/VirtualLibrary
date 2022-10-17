@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Common;
 using VL.Shared.Interfaces;
 using VL.Shared.Model;
 
@@ -11,57 +12,55 @@ namespace API.Controllers
     {
         private readonly ILogger<AccountController> _logger;
         private readonly IAccountService _accountService;
+        private readonly ITokenService _tokenService;
 
         public AccountController(
             ILogger<AccountController> logger,
-            IAccountService accountService)
+            IAccountService accountService,
+            ITokenService tokenService)
         {
             _logger = logger;
             _accountService = accountService;
+            _tokenService = tokenService;
         }
-
-        public static IdentityUser user = new IdentityUser();
 
         [HttpPost]
         [Route("register")]
-        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
         [ProducesDefaultResponseType]
         public async Task<IActionResult> Register([FromBody] UserDto userDto)
         {
-            _logger.LogInformation($"Registration Attempt for {userDto.Email}");
-
             var result = await _accountService.RegisterAsync(userDto);
 
             if (!result.Succeeded)
             {
                 return BadRequest();
             }
+            
+            var jwt = await _tokenService.GenerateTokenAsync(userDto);
 
-            await Login(userDto);
-
-            return Ok();
+            return Ok(jwt);
         }
 
         [HttpPost]
         [Route("login")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
         [ProducesDefaultResponseType]
         public async Task<IActionResult> Login([FromBody] LoginDto userDto)
         {
-            _logger.LogInformation($"Login Attempt for {userDto.Email}");
+            var login = await _accountService.LoginAsync(userDto);
 
-            var result = await _accountService.LoginAsync(userDto);
-
-            if (result.Contains("Login failed"))
+            if (!login.Succeeded)
             {
                 return Unauthorized();
             }
 
-            return Content(result);
+            var jwt = _tokenService.GenerateTokenAsync(userDto);
+            return Ok(jwt);
         }
     }
 }

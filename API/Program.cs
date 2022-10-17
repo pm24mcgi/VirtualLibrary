@@ -27,6 +27,7 @@ builder.Services.AddScoped<IMigrateService, MigrateService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<ISeedingService, SeedingService>();
 builder.Services.AddScoped<IBookService, BookService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
