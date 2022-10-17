@@ -22,7 +22,7 @@ namespace API.Controllers
         /// <summary>
         /// Get all books
         /// </summary>
-        /// <returns>A list of books</returns>
+        /// <returns>A list of all books</returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -38,8 +38,8 @@ namespace API.Controllers
         /// <summary>
         /// Get a specific book by id
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns>A book by id</returns>
+        /// <param name="id">id</param>
+        /// <returns>Book</returns>
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -53,9 +53,8 @@ namespace API.Controllers
         /// <summary>
         /// Edit a book
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="book"></param>
-        /// <returns>Edit a book by id</returns>
+        /// <param name="book">book</param>
+        /// <returns>Updated book</returns>
         [HttpPut("{id}"), Authorize("IsLibrarian")]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
 
@@ -66,10 +65,10 @@ namespace API.Controllers
         }
 
         /// <summary>
-        /// Create a book
+        /// Create a new book
         /// </summary>
-        /// <param name="book"></param>
-        /// <returns>Create a new book</returns>
+        /// <param name="book">book</param>
+        /// <returns>Newly created book</returns>
         [HttpPost, Authorize("IsLibrarian")]
         [ProducesResponseType(StatusCodes.Status201Created)]
 
@@ -82,8 +81,8 @@ namespace API.Controllers
         /// <summary>
         /// Delete a book by id
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns>Delete a book by id</returns>
+        /// <param name="id">id</param>
+        /// <returns>"Book was successfully deleted"</returns>
         [HttpDelete("{id}"), Authorize("IsLibrarian")]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
