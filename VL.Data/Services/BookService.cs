@@ -27,15 +27,22 @@ namespace VL.Shared.Services
 
         public async Task<Book?> UpdateBookAsync(Book book)
         {
-            var bookUpdate = new Book();
+            var bookUpdate = new Book()
             {
-                Id = book.Id;
-                bookUpdate.Title = book.Title;
-                bookUpdate.Description = book.Description;
-                bookUpdate.Author = book.Author;
-            }
+                Id = book.Id,
+                Title = book.Title,
+                Description = book.Description,
+                Author = book.Author
 
-            _applicationDbContext.Book.Update(bookUpdate);
+            };
+
+            _applicationDbContext.Book.Update(new Book
+            {
+                Id = book.Id,
+                Title = book.Title,
+                Description = book.Description,
+
+            });
             await _applicationDbContext.SaveChangesAsync();
             return bookUpdate;
         }
