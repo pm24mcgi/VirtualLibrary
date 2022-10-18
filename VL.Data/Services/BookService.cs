@@ -36,13 +36,7 @@ namespace VL.Shared.Services
 
             };
 
-            _applicationDbContext.Book.Update(new Book
-            {
-                Id = book.Id,
-                Title = book.Title,
-                Description = book.Description,
-
-            });
+            _applicationDbContext.Book.Update(bookUpdate);
             await _applicationDbContext.SaveChangesAsync();
             return bookUpdate;
         }
