@@ -49,12 +49,10 @@ namespace VL.Shared.Services
 
         public async Task<bool> DeleteBookAsync(int id)
         {
-            var bookDelete = new Book
+            _applicationDbContext.Book.Remove(new Book
             {
                 Id = id
-            };
-
-            _applicationDbContext.Book.Remove(bookDelete);
+            });
             var result = await _applicationDbContext.SaveChangesAsync();
 
             return result > 0;
