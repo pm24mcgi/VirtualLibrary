@@ -52,6 +52,8 @@ builder.Services.AddSwaggerGen(options =>
     options.SwaggerDoc("v1", info);
 });
 
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 // Add authentication scheme
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

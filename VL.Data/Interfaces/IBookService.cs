@@ -8,9 +8,9 @@ namespace VL.Shared.Interfaces
 
         public Task<Book?> GetBookAsync(int id);
 
-        public Task<Book?> UpdateBookAsync(Book book);
+        public Task<Book?> UpdateBookAsync(UpdateBookDto book);
 
-        public Task<Book> CreateBookAsync(Book book);
+        public Task<Book> CreateBookAsync(UpdateBookDto book);
 
         public Task<bool> DeleteBookAsync(int id);
     }

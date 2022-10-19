@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using VL.Shared.Data;
 using VL.Shared.Interfaces;
 using VL.Shared.Model;
@@ -8,10 +9,12 @@ namespace VL.Shared.Services
     public class BookService : IBookService
     {
         private readonly ApplicationDbContext _applicationDbContext;
+        private readonly IMapper _mapper;
 
-        public BookService(ApplicationDbContext applicationDbContext)
+        public BookService(ApplicationDbContext applicationDbContext, IMapper mapper)
         {
             _applicationDbContext = applicationDbContext;
+            _mapper = mapper;
         }
 
         public async Task<List<Book>> GetBooksAsync()
@@ -25,27 +28,20 @@ namespace VL.Shared.Services
             return await _applicationDbContext.Book.FindAsync(id);
         }
 
-        public async Task<Book?> UpdateBookAsync(Book book)
+        public async Task<Book?> UpdateBookAsync(UpdateBookDto book)
         {
-            var bookUpdate = new Book()
-            {
-                Id = book.Id,
-                Title = book.Title,
-                Description = book.Description,
-                Author = book.Author
-
-            };
-
-            _applicationDbContext.Book.Update(bookUpdate);
+            var mappedBook = _mapper.Map<Book>(book);
+            _applicationDbContext.Book.Update(mappedBook);
             await _applicationDbContext.SaveChangesAsync();
-            return bookUpdate;
+            return mappedBook;
         }
 
-        public async Task<Book> CreateBookAsync(Book book)
+        public async Task<Book> CreateBookAsync(UpdateBookDto book)
         {
-            _applicationDbContext.Book.Add(book);
+            var mappedBook = _mapper.Map<Book>(book);
+            _applicationDbContext.Book.Add(mappedBook);
             await _applicationDbContext.SaveChangesAsync();
-            return book;
+            return mappedBook;
         }
 
         public async Task<bool> DeleteBookAsync(int id)

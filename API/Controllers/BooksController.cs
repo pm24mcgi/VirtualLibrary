@@ -58,7 +58,7 @@ namespace API.Controllers
         [HttpPut("{id}"), Authorize("IsLibrarian")]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> UpdateBook(Book book)
+        public async Task<IActionResult> UpdateBook(UpdateBookDto book)
         {
             var bookUpdate = await _bookService.UpdateBookAsync(book);
             return Accepted(bookUpdate);
@@ -72,7 +72,7 @@ namespace API.Controllers
         [HttpPost, Authorize("IsLibrarian")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesDefaultResponseType]
-        public async Task<CreatedResult> CreateBook(Book book)
+        public async Task<CreatedResult> CreateBook(UpdateBookDto book)
         {
             var newBook = await _bookService.CreateBookAsync(book);
             return Created("New Book", newBook);
