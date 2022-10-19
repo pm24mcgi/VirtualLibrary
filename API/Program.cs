@@ -77,7 +77,7 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("IsLibrarian", policy =>
         policy.RequireRole("Librarian"));
 
-    options.AddPolicy("IsAllUsers", policy =>
+    options.AddPolicy("IsAnyUser", policy =>
         policy.RequireRole("User", "Librarian"));
 });
 

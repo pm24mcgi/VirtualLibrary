@@ -7,7 +7,7 @@ using static System.Reflection.Metadata.BlobBuilder;
 
 namespace API.Controllers
 {
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "IsAllUsers")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "IsAnyUser")]
     [Route("api/vl")]
     [ApiController]
     public class BooksController : ControllerBase
@@ -27,7 +27,7 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> GetBooks()
+        public async Task<ActionResult<BookDto>> GetBooks()
         {
             var bookListDto = await _bookService.GetBooksAsync();
             if (!bookListDto.Any()) return NotFound();
@@ -43,7 +43,7 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<Book>> GetBook(int id)
+        public async Task<ActionResult<BookDto>> GetBook(int id)
         {
             var bookDto = await _bookService.GetBookAsync(id);
             if (bookDto == null) return NotFound();
@@ -53,29 +53,29 @@ namespace API.Controllers
         /// <summary>
         /// Edit a book
         /// </summary>
-        /// <param name="book">book</param>
+        /// <param name="bookDto">book</param>
         /// <returns>Updated book</returns>
         [HttpPut, Authorize("IsLibrarian")]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> UpdateBook(BookDto book)
+        public async Task<ActionResult<BookDto>> UpdateBook(BookDto bookDto)
         {
-            var bookUpdate = await _bookService.UpdateBookAsync(book);
-            return Accepted(bookUpdate);
+            var updateBookDto = await _bookService.UpdateBookAsync(bookDto);
+            return Accepted(updateBookDto);
         }
 
         /// <summary>
         /// Create a new book
         /// </summary>
-        /// <param name="book">book</param>
+        /// <param name="bookDto">book</param>
         /// <returns>Newly created book</returns>
         [HttpPost, Authorize("IsLibrarian")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesDefaultResponseType]
-        public async Task<CreatedResult> CreateBook(BookDto book)
+        public async Task<CreatedResult> CreateBook(BookDto bookDto)
         {
-            var newBook = await _bookService.CreateBookAsync(book);
-            return Created("New Book", newBook);
+            var newBookDto = await _bookService.CreateBookAsync(bookDto);
+            return Created("New Book", newBookDto);
         }
 
         /// <summary>
