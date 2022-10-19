@@ -4,13 +4,13 @@ namespace VL.Shared.Interfaces
 {
     public interface IBookService
     {
-        public Task<List<Book>> GetBooksAsync();
+        public Task<IEnumerable<BookDto>> GetBooksAsync();
 
-        public Task<Book?> GetBookAsync(int id);
+        public Task<BookDto?> GetBookAsync(int id);
 
-        public Task<Book?> UpdateBookAsync(UpdateBookDto book);
+        public Task<Book?> UpdateBookAsync(BookDto book);
 
-        public Task<Book> CreateBookAsync(UpdateBookDto book);
+        public Task<Book> CreateBookAsync(BookDto book);
 
         public Task<bool> DeleteBookAsync(int id);
     }

@@ -29,9 +29,9 @@ namespace API.Controllers
         [ProducesDefaultResponseType]
         public async Task<IActionResult> GetBooks()
         {
-            var books = await _bookService.GetBooksAsync();
-            if (books.Count == 0) return NotFound();
-            return Ok(books);
+            var bookListDto = await _bookService.GetBooksAsync();
+            if (!bookListDto.Any()) return NotFound();
+            return Ok(bookListDto);
         }
 
         /// <summary>
@@ -45,9 +45,9 @@ namespace API.Controllers
         [ProducesDefaultResponseType]
         public async Task<ActionResult<Book>> GetBook(int id)
         {
-            var book = await _bookService.GetBookAsync(id);
-            if (book == null) return NotFound();
-            return Ok(book);
+            var bookDto = await _bookService.GetBookAsync(id);
+            if (bookDto == null) return NotFound();
+            return Ok(bookDto);
         }
 
         /// <summary>
@@ -55,10 +55,10 @@ namespace API.Controllers
         /// </summary>
         /// <param name="book">book</param>
         /// <returns>Updated book</returns>
-        [HttpPut("{id}"), Authorize("IsLibrarian")]
+        [HttpPut, Authorize("IsLibrarian")]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> UpdateBook(UpdateBookDto book)
+        public async Task<IActionResult> UpdateBook(BookDto book)
         {
             var bookUpdate = await _bookService.UpdateBookAsync(book);
             return Accepted(bookUpdate);
@@ -72,7 +72,7 @@ namespace API.Controllers
         [HttpPost, Authorize("IsLibrarian")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesDefaultResponseType]
-        public async Task<CreatedResult> CreateBook(UpdateBookDto book)
+        public async Task<CreatedResult> CreateBook(BookDto book)
         {
             var newBook = await _bookService.CreateBookAsync(book);
             return Created("New Book", newBook);

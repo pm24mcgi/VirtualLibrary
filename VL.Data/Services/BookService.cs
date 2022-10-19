@@ -17,18 +17,23 @@ namespace VL.Shared.Services
             _mapper = mapper;
         }
 
-        public async Task<List<Book>> GetBooksAsync()
+        public async Task<IEnumerable<BookDto>> GetBooksAsync()
         {
-            return await _applicationDbContext.Book
+            var bookList = await _applicationDbContext.Book
                 .ToListAsync();
+            var mappedBookList = bookList.Select(bookList => _mapper.Map<BookDto>(bookList));
+            return mappedBookList;
         }
 
-        public async Task<Book?> GetBookAsync(int id)
+        public async Task<BookDto?> GetBookAsync(int id)
         {
-            return await _applicationDbContext.Book.FindAsync(id);
+            var book = await _applicationDbContext.Book.FindAsync(id);
+            if (book == null) return null;
+            var mappedBook = _mapper.Map<BookDto>(book);
+            return mappedBook;
         }
 
-        public async Task<Book?> UpdateBookAsync(UpdateBookDto book)
+        public async Task<Book?> UpdateBookAsync(BookDto book)
         {
             var mappedBook = _mapper.Map<Book>(book);
             _applicationDbContext.Book.Update(mappedBook);
@@ -36,7 +41,7 @@ namespace VL.Shared.Services
             return mappedBook;
         }
 
-        public async Task<Book> CreateBookAsync(UpdateBookDto book)
+        public async Task<Book> CreateBookAsync(BookDto book)
         {
             var mappedBook = _mapper.Map<Book>(book);
             _applicationDbContext.Book.Add(mappedBook);
