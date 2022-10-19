@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using VL.Shared.Data;
 using VL.Shared.Interfaces;
@@ -19,18 +20,17 @@ namespace VL.Shared.Services
 
         public async Task<IEnumerable<BookDto>> GetBooksAsync()
         {
-            var bookList = await _applicationDbContext.Book
+            return await _applicationDbContext.Book
+                .ProjectTo<BookDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
-            var mappedBookList = bookList.Select(bookList => _mapper.Map<BookDto>(bookList));
-            return mappedBookList;
         }
 
         public async Task<BookDto?> GetBookAsync(int id)
         {
             var book = await _applicationDbContext.Book.FindAsync(id);
             if (book == null) return null;
-            var mappedBook = _mapper.Map<BookDto>(book);
-            return mappedBook;
+            var bookDto = _mapper.Map<BookDto>(book);
+            return bookDto;
         }
 
         public async Task<Book?> UpdateBookAsync(BookDto bookDto)
