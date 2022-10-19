@@ -91,11 +91,7 @@ namespace API.Controllers
         {
             var result = await _bookService.DeleteBookAsync(id);
 
-            if (result)
-            {
-                return Ok("Book was successfully deleted");
-            }
-            return NotFound();
+            return result ? Ok() : NotFound();
         }
     }
 }
