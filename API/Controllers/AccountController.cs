@@ -6,7 +6,7 @@ using VL.Shared.Model;
 
 namespace API.Controllers
 {
-    [Route("api/account")]
+    [Route("[controller]")]
     [ApiController]
     public class AccountController : ControllerBase
     {
