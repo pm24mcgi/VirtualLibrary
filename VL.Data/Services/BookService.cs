@@ -35,18 +35,18 @@ namespace VL.Shared.Services
 
         public async Task<Book?> UpdateBookAsync(BookDto bookDto)
         {
-            var mappedBook = _mapper.Map<Book>(bookDto);
-            _applicationDbContext.Book.Update(mappedBook);
+            var book = _mapper.Map<Book>(bookDto);
+            _applicationDbContext.Book.Update(book);
             await _applicationDbContext.SaveChangesAsync();
-            return mappedBook;
+            return book;
         }
 
         public async Task<Book> CreateBookAsync(BookDto bookDto)
         {
-            var mappedBook = _mapper.Map<Book>(bookDto);
-            _applicationDbContext.Book.Add(mappedBook);
+            var book = _mapper.Map<Book>(bookDto);
+            _applicationDbContext.Book.Add(book);
             await _applicationDbContext.SaveChangesAsync();
-            return mappedBook;
+            return book;
         }
 
         public async Task<bool> DeleteBookAsync(int id)
