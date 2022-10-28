@@ -10,4 +10,5 @@ namespace VL.Shared.Data
         }
         public DbSet<Book> Book { get; set; } = default!;
     }
+    //add-migration Initial -context ApplicationDbContext -o Data/Migrations
 }

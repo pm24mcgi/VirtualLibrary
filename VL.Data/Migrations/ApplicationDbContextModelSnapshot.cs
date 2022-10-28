@@ -8,7 +8,7 @@ using VL.Shared.Data;
 
 #nullable disable
 
-namespace VL.Shared.Data.Migrations
+namespace VL.Shared.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot

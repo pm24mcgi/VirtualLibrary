@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace VL.Shared.Data.Migrations
+namespace VL.Shared.Migrations
 {
     public partial class initial : Migration
     {

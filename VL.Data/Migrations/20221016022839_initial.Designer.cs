@@ -9,10 +9,10 @@ using VL.Shared.Data;
 
 #nullable disable
 
-namespace VL.Shared.Data.Migrations
+namespace VL.Shared.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220927145549_initial")]
+    [Migration("20221016022839_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
