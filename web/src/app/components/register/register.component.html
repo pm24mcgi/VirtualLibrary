@@ -1,1 +1,21 @@
-<p>register works!</p>
+<form [formGroup]="registerForm" (ngSubmit)="register()" autocomplete="off">
+    <input
+        formControlName="email"
+        placeholder="Email Address"
+        type="text"
+        class="form-control">
+    <input
+        formControlName="password"
+        placeholder="Password"
+        type="password"
+        class="form-control">
+    <input
+        formControlName="role"
+        placeholder="Role"
+        type="text"
+        class="form-control">
+    <button type="submit" class="btn btn-primary btn-block mb-4">Register</button>
+    <div class="text-center">
+        <p>Already a member? <a href="/login">Login</a></p>
+    </div>
+</form>

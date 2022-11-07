@@ -1,21 +1,15 @@
-<form #loginForm="ngForm" (ngSubmit)="login()" autocomplete="off">
-    <div class="form-outline mb-4">
-        <input
-            name="username"
-            [(ngModel)]="model.username"
-            type="text"
-            class="form-control">
-        <label class="form-label" for="form2Example1">Email address</label>
-    </div>
-    <div class="form-outline mb-4">
-        <input
-        name="password"
-        [(ngModel)]="model.password"
+<form [formGroup]="loginForm" (ngSubmit)="login()" autocomplete="off">
+    <input
+        formControlName="username"
+        placeholder="Email Address"
         type="text"
         class="form-control">
-        <label class="form-label" for="form2Example2">Password</label>
-    </div>
-    <button type="button" class="btn btn-primary btn-block mb-4">Login</button>
+    <input
+        formControlName="password"
+        placeholder="Password"
+        type="password"
+        class="form-control">
+    <button type="submit" class="btn btn-primary btn-block mb-4">Login</button>
     <div class="text-center">
         <p>Not a member? <a href="/register">Register</a></p>
     </div>

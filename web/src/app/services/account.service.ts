@@ -8,7 +8,13 @@ import { environment } from '../../environments/environment';
 export class AccountService {
   constructor(private http: HttpClient) { }
 
-  login(model: any){
-    return this.http.post(`${environment.apiUrl}/account/login`, model);
+  login(username: string, password: string){
+    return this.http.post(`${environment.apiUrl}/account/login`, {username, password});
+  }
+
+  logout() {}
+
+  register(email: string, password: string, role: string){
+    return this.http.post(`${environment.apiUrl}/account/register`, {email, password, role});
   }
 }
