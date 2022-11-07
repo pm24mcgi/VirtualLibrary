@@ -1,20 +1,42 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { UserLogin } from '../shared/models/login';
+import { UserRegister } from '../shared/models/register';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AccountService {
-  constructor(private http: HttpClient) { }
+  private token: string | null;
 
-  login(username: string, password: string){
-    return this.http.post(`${environment.apiUrl}/account/login`, {username, password});
+  constructor(private http: HttpClient) {}
+
+  public get isLoggedIn(): boolean {
+    return this.token != null && this.token?.length > 1;
   }
 
-  logout() {}
+  logout() {
+    this.token = null;
+  }
 
-  register(email: string, password: string, role: string){
-    return this.http.post(`${environment.apiUrl}/account/register`, {email, password, role});
+  login(userLogin: UserLogin): Observable<string> {
+    return this.http
+      .post(`${environment.apiUrl}/account/login`, userLogin, {
+        responseType: 'text',
+      })
+      .pipe(
+        tap((response) => {
+          this.token = response;
+        })
+      );
+  }
+
+  register(userRegister: UserRegister) {
+    return this.http.post(
+      `${environment.apiUrl}/account/register`,
+      userRegister
+    );
   }
 }

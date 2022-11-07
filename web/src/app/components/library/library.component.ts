@@ -5,22 +5,14 @@ import { BookService } from 'src/app/services/book.service';
 @Component({
   selector: 'app-library',
   templateUrl: './library.component.html',
-  styleUrls: ['./library.component.scss']
+  styleUrls: ['./library.component.scss'],
 })
 export class LibraryComponent implements OnInit {
-  books: Observable<Object[]>;
+  constructor(private bookService: BookService) {}
 
-  constructor(
-    private bookService: BookService
-  ) {
-    
-  }
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   getBooks() {
-    this.bookService.getBooks().values();
+    //  this.bookService.getBooks().values();
   }
-
 }
