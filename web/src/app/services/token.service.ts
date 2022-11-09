@@ -1,5 +1,4 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { inspect } from '@rxjs-insights/devtools';
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 
 @Injectable({
@@ -17,7 +16,7 @@ export class TokenService implements OnDestroy {
   constructor() {
     this.token$ = new BehaviorSubject(localStorage.getItem('jwt') ?? '');
 
-    this.token$.pipe(takeUntil(this.destroyed$), inspect).subscribe((token) => {
+    this.token$.pipe(takeUntil(this.destroyed$)).subscribe((token) => {
       if (token.length > 0) {
         localStorage.setItem('jwt', token);
       } else {
