@@ -3,12 +3,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VL.Shared.Interfaces;
 using VL.Shared.Model;
-using static System.Reflection.Metadata.BlobBuilder;
 
 namespace API.Controllers
 {
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "IsAnyUser")]
-    [Route("api/vl")]
+    [Route("[controller]")]
     [ApiController]
     public class BooksController : ControllerBase
     {

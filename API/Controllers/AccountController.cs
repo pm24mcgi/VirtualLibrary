@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using NuGet.Common;
+﻿using Microsoft.AspNetCore.Mvc;
 using VL.Shared.Interfaces;
 using VL.Shared.Model;
 
@@ -38,7 +36,7 @@ namespace API.Controllers
             {
                 return BadRequest();
             }
-            
+
             var jwt = await _tokenService.GenerateTokenAsync(userDto);
 
             return Ok(jwt);

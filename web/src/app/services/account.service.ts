@@ -9,7 +9,7 @@ import { UserRegister } from '../shared/models/register';
   providedIn: 'root',
 })
 export class AccountService {
-  private token: string | null;
+  private _token: string;
 
   constructor(private http: HttpClient) {}
 
@@ -17,8 +17,12 @@ export class AccountService {
     return this.token != null && this.token?.length > 1;
   }
 
+  public get token(): string {
+    return this._token;
+  }
+
   logout() {
-    this.token = null;
+    this._token = '';
   }
 
   login(userLogin: UserLogin): Observable<string> {
@@ -28,7 +32,7 @@ export class AccountService {
       })
       .pipe(
         tap((response) => {
-          this.token = response;
+          this._token = response;
         })
       );
   }
