@@ -4,6 +4,7 @@ import { Observable, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { UserLogin } from '../shared/models/login';
 import { UserRegister } from '../shared/models/register';
+import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ import { UserRegister } from '../shared/models/register';
 export class AccountService {
   private _token: string;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private tokenService: TokenService) {}
 
   public get isLoggedIn(): boolean {
     return this.token != null && this.token?.length > 1;
@@ -33,6 +34,7 @@ export class AccountService {
       .pipe(
         tap((response) => {
           this._token = response;
+          this.tokenService.setToken(this._token);
         })
       );
   }

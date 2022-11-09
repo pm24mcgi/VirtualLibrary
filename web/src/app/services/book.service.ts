@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Book } from '../shared/models/book';
-import { AccountService } from './account.service';
+import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,24 +11,37 @@ import { AccountService } from './account.service';
 export class BookService {
   constructor(
     private http: HttpClient,
-    private accountService: AccountService
+    private tokenService: TokenService
   ) {}
 
   getBooks(): Observable<Book[]> {
     const headers = {
       headers: new HttpHeaders().set(
         'Authorization',
-        `Bearer ${this.accountService.token}`
+        `Bearer ${this.tokenService.getToken()}`
       ),
     };
 
     return this.http.get<Book[]>(`${environment.apiUrl}/books`, headers).pipe(
       map((books: Book[]) => {
-        return books.map((book) => {
-          book.releaseDate = new Date(book.releaseDate);
-          return book;
-        });
+        return books
       })
     );
+  }
+
+  getBook() {
+
+  }
+
+  postBook() {
+    
+  }
+
+  editBook() {
+    
+  }
+
+  deleteBook() {
+    
   }
 }
