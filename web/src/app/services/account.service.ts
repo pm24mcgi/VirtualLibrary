@@ -11,6 +11,8 @@ import { TokenService } from './token.service';
 })
 export class AccountService {
   private _token: string;
+  loggedIn: boolean;
+
 
   constructor(private http: HttpClient, private tokenService: TokenService) {}
 
@@ -24,6 +26,8 @@ export class AccountService {
 
   logout() {
     this._token = '';
+    this.tokenService.removeToken();
+    this.loggedIn = false;
   }
 
   login(userLogin: UserLogin): Observable<string> {
@@ -35,6 +39,7 @@ export class AccountService {
         tap((response) => {
           this._token = response;
           this.tokenService.setToken(this._token);
+          return this.loggedIn = true;
         })
       );
   }
