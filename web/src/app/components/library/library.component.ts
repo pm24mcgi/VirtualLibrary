@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { BookService } from 'src/app/services/book.service';
 
 @Component({
@@ -8,11 +7,15 @@ import { BookService } from 'src/app/services/book.service';
   styleUrls: ['./library.component.scss'],
 })
 export class LibraryComponent implements OnInit {
+  books = this.getBooks()
+
   constructor(private bookService: BookService) {}
 
   ngOnInit(): void {}
 
   getBooks() {
-    //  this.bookService.getBooks().values();
+    const books = this.bookService.getBooks()
+    console.log(books)
+    return books;
   }
 }
