@@ -9,39 +9,28 @@ import { TokenService } from './token.service';
   providedIn: 'root',
 })
 export class BookService {
-  constructor(
-    private http: HttpClient,
-    private tokenService: TokenService
-  ) {}
+  constructor(private http: HttpClient, private tokenService: TokenService) {}
 
   getBooks(): Observable<Book[]> {
     const headers = {
       headers: new HttpHeaders().set(
         'Authorization',
-        `Bearer ${this.tokenService.getToken()}`
+        `Bearer ${this.tokenService.token$.getValue()}`
       ),
     };
 
     return this.http.get<Book[]>(`${environment.apiUrl}/books`, headers).pipe(
       map((books: Book[]) => {
-        return books
+        return books;
       })
     );
   }
 
-  getBook() {
+  getBook() {}
 
-  }
+  postBook() {}
 
-  postBook() {
-    
-  }
+  editBook() {}
 
-  editBook() {
-    
-  }
-
-  deleteBook() {
-    
-  }
+  deleteBook() {}
 }

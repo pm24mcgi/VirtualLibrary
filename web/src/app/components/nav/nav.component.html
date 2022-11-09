@@ -1,21 +1,23 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <div class="loggedOut container" *ngIf="navToggle == false">
-        <div class="container-fluid d-flex p-2">
-            <a class="navbar-brand" href="/">VL Web</a>
-            <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                <li class="nav-item">
-                <a class="nav-link" href="/login">Login</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="/register">Register</a>
-                </li>
-            </ul>
-        </div>
+  <div class="loggedOut container" *ngIf="!tokenService.isLoggedIn">
+    <!-- look at if / else -->
+    <div class="container-fluid d-flex p-2">
+      <a class="navbar-brand" href="/">VL Web</a>
+      <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/register">Register</a>
+        </li>
+      </ul>
     </div>
-    <div class="loggedIn container" *ngIf="navToggle">
-        <div class="container-fluid d-flex p-2">
-            <a class="navbar-brand" href="/">VL Web</a>
-            new stuff
-        </div>
+  </div>
+  <div class="loggedIn container" *ngIf="tokenService.isLoggedIn">
+    <!-- look at if / else -->
+    <div class="container-fluid d-flex p-2">
+      <a class="navbar-brand" href="/">VL Web</a>
+      new stuff
     </div>
+  </div>
 </nav>

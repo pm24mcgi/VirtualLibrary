@@ -31,9 +31,8 @@ export class LoginComponent {
     const userLogin = this.loginForm.value as UserLogin;
 
     this.accountService.login(userLogin).subscribe({
-      next: (response) => {
+      next: () => {
         this.router.navigateByUrl('/library');
-        console.log(this.accountService.isLoggedIn);
       },
       error: (error) => {
         console.log(error);
