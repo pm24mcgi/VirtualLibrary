@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { BookService } from 'src/app/services/book.service';
 import { Book } from '../../shared/models/book';
 
@@ -10,9 +11,13 @@ import { Book } from '../../shared/models/book';
 export class LibraryComponent {
   books: Book[];
 
-  constructor(private bookService: BookService) {
+  constructor(private bookService: BookService, private router: Router) {
     this.bookService.getBooks().subscribe((books) => {
       this.books = books;
     });
+  }
+
+  onClick(): void {
+    this.router.navigateByUrl('create')
   }
 }

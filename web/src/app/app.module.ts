@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { FooterComponent } from './components/footer/footer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CreateComponent } from './create/create.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SplashComponent,
     RegisterComponent,
     NavComponent,
-    FooterComponent
+    FooterComponent,
+    CreateComponent
   ],
   imports: [
     BrowserModule,
