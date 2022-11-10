@@ -5,6 +5,8 @@ import { LoginComponent } from './components/login/login.component'
 import { RegisterComponent } from './components/register/register.component'
 import { SplashComponent } from './components/splash/splash.component';
 import { CreateComponent } from './components/create/create.component';
+import { EditComponent } from './components/edit/edit.component';
+import { DetailComponent } from './components/detail/detail.component';
 
 const routes: Routes = [
   {
@@ -31,6 +33,16 @@ const routes: Routes = [
     path: 'create',
     component: CreateComponent,
     data: { title: 'Create' },
+  },
+  {
+    path: 'edit',
+    component: EditComponent,
+    data: { title: 'Edit' },
+  },
+  {
+    path: 'detail',
+    component: DetailComponent,
+    data: { title: 'Detail' },
   },
   {
     path: '**',

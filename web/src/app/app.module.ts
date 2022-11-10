@@ -13,6 +13,8 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { FooterComponent } from './components/footer/footer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateComponent } from './components/create/create.component';
+import { EditComponent } from './components/edit/edit.component';
+import { DetailComponent } from './components/detail/detail.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { CreateComponent } from './components/create/create.component';
     RegisterComponent,
     NavComponent,
     FooterComponent,
-    CreateComponent
+    CreateComponent,
+    EditComponent,
+    DetailComponent
   ],
   imports: [
     BrowserModule,

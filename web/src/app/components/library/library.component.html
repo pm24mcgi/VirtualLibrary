@@ -1,5 +1,5 @@
 <div class="header">
-  <button class="createBtn" (click)="onClick()">+ Add a book</button>
+  <button class="createBtn" (click)="create()">+ Add a book</button>
 </div>
 <table>
   <tr class="tableheader">
@@ -7,9 +7,13 @@
     <th>Author</th>
     <th>Description</th>
   </tr>
-  <tr *ngFor="let book of books">
+  <tr *ngFor="let book of books" class="rows">
     <td>{{ book.title }}</td>
     <td>{{ book.author }}</td>
     <td>{{ book.description }}</td>
+    <div class="editBtnsDiv">
+      <button class="editBtn" (click)="edit()">Edit</button>
+      <button class="editBtn" (click)="detail()">Checkout</button>
+    </div>
   </tr>
 </table>

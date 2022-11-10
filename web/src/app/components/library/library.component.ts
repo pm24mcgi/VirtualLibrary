@@ -17,7 +17,15 @@ export class LibraryComponent {
     });
   }
 
-  onClick(): void {
+  create(): void {
     this.router.navigateByUrl('create')
+  }
+
+  edit(): void {
+    this.router.navigateByUrl('edit')
+  }
+
+  detail(): void {
+    this.router.navigateByUrl('detail')
   }
 }
