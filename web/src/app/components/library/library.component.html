@@ -6,11 +6,13 @@
     <th>Title</th>
     <th>Author</th>
     <th>Description</th>
+    <th>Checked Out??</th>
   </tr>
   <tr *ngFor="let book of books" class="rows">
     <td>{{ book.title }}</td>
     <td>{{ book.author }}</td>
     <td>{{ book.description }}</td>
+    <td>{{ book.checkedOut }}</td>
     <div class="editBtnsDiv">
       <button class="editBtn" (click)="edit()">Edit</button>
       <button class="editBtn" (click)="detail()">Checkout</button>

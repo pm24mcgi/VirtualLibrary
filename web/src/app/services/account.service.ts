@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { Router } from '@angular/router';
+import { Observable, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { UserLogin } from '../shared/models/login';
 import { UserRegister } from '../shared/models/register';
@@ -11,10 +12,15 @@ import { TokenService } from './token.service';
 })
 export class AccountService {
 
-  constructor(private http: HttpClient, private tokenService: TokenService) {}
+  constructor(
+    private http: HttpClient,
+    private tokenService: TokenService,
+    private router: Router
+    ) {}
 
   logout() {
     this.tokenService.token$.next('');
+    this.router.navigateByUrl('splash')
   }
 
   login(userLogin: UserLogin): Observable<string> {

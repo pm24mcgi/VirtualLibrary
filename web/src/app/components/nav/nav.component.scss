@@ -1,0 +1,16 @@
+.loggedInNav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.btn {
+    border-radius: 1em;
+    background-color: greenyellow;
+    font-weight: bolder;
+    padding-left: .5em;
+    padding-right: .5em;
+    font-size: .8em;
+    height: fit-content;
+}

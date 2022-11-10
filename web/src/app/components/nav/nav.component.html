@@ -15,9 +15,9 @@
   </div>
   <div class="loggedIn container" *ngIf="tokenService.isLoggedIn">
     <!-- look at if / else -->
-    <div class="container-fluid d-flex p-2">
+    <div class="loggedInNav">
       <a class="navbar-brand" href="/">VL Web</a>
-      new stuff
+      <button class="btn" (click)="logOut()">Log Out</button>
     </div>
   </div>
 </nav>
