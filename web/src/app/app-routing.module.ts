@@ -4,7 +4,7 @@ import { LibraryComponent } from './components/library/library.component';
 import { LoginComponent } from './components/login/login.component'
 import { RegisterComponent } from './components/register/register.component'
 import { SplashComponent } from './components/splash/splash.component';
-import { CreateComponent } from './create/create.component';
+import { CreateComponent } from './components/create/create.component';
 
 const routes: Routes = [
   {

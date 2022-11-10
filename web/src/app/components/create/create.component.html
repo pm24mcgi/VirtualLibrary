@@ -1,0 +1,45 @@
+<form [formGroup]="createBookForm" (ngSubmit)="createBook()" autocomplete="off">
+    <input
+        formControlName="title"
+        placeholder="Book Title"
+        type="text"
+        class="form-control"
+    />
+    <ng-container *ngIf="createBookForm.get('title')?.touched">
+        <div
+          class="form-error"
+          *ngIf="createBookForm.get('title')?.hasError('required')"
+        >
+          Required
+        </div>
+      </ng-container>
+      <input
+      formControlName="author"
+      placeholder="Author"
+      type="text"
+      class="form-control"
+  />
+  <ng-container *ngIf="createBookForm.get('author')?.touched">
+      <div
+        class="form-error"
+        *ngIf="createBookForm.get('author')?.hasError('required')"
+      >
+        Required
+      </div>
+    </ng-container>
+    <input
+    formControlName="description"
+    placeholder="Description"
+    type="text"
+    class="form-control"
+/>
+<ng-container *ngIf="createBookForm.get('description')?.touched">
+    <div
+      class="form-error"
+      *ngIf="createBookForm.get('description')?.hasError('required')"
+    >
+      Required
+    </div>
+  </ng-container>
+  <button type="submit" class="btn btn-primary btn-block mb-4">Create Book</button>
+</form>
