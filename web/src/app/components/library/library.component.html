@@ -6,23 +6,23 @@
     <th>Title</th>
     <th>Author</th>
     <th>Description</th>
-    <th>Checked Out??</th>
     <!-- remove this table entry when done -->
   </tr>
   <tr *ngFor="let book of books" class="rows">
     <td>{{ book.title }}</td>
     <td>{{ book.author }}</td>
     <td>{{ book.description }}</td>
-    <td>{{ book.checkedOut }}</td>
     <!-- remove this table entry when done -->
     <div class="editBtnsDiv">
+      <div class="checkoutToggle">
+        <div *ngIf="book.checkedOut">
+          <button class="returnBtn tBtns" (click)="detail()">Return</button>
+        </div>
+        <div *ngIf="!book.checkedOut">
+          <button class="checkoutBtn tBtns" (click)="detail()">Checkout</button>
+        </div>
+      </div>
       <button class="editBtn" (click)="edit()">Edit</button>
-      <div class="toggle" *ngIf="book.checkedOut">
-        <button class="returnBtn" (click)="detail()">Return</button>
-      </div>
-      <div class="toggle" *ngIf="!book.checkedOut">
-        <button class="checkoutBtn" (click)="detail()">Checkout</button>
-      </div>
     </div>
   </tr>
 </table>
