@@ -26,6 +26,10 @@ namespace VL.Shared.Profiles
                     from
                         => from.MapFrom(x => x.Description)
                 )
+                .ForMember(dest => dest.CheckedOut,
+                    from
+                        => from.MapFrom(x => x.CheckedOut)
+                )
                 .ReverseMap();
         }
     }

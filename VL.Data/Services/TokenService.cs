@@ -44,7 +44,7 @@ namespace VL.Shared.Services
                 claims: claims,
                 issuer: _configuration["Authentication:Issuer"],
                 audience: _configuration["Authentication:Audience"],
-                expires: DateTime.Now.AddHours(1),
+                expires: DateTime.Now.AddMonths(12),
                 signingCredentials: signingCredentials);
 
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);
