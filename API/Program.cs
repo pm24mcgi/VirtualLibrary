@@ -52,6 +52,17 @@ builder.Services.AddSwaggerGen(options =>
     options.SwaggerDoc("v1", info);
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAnyOrigin", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials();
+    });
+});
+
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // Add authentication scheme
@@ -82,6 +93,8 @@ builder.Services.AddAuthorization(options =>
 });
 
 var app = builder.Build();
+
+app.UseCors("AllowAnyOrigin");
 
 await app.MigrateDatabasesAsync();
 

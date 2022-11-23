@@ -1,0 +1,37 @@
+<form [formGroup]="loginForm" (ngSubmit)="login()" autocomplete="off">
+  <input
+    formControlName="email"
+    placeholder="Email Address"
+    type="text"
+    class="form-control"
+  />
+  <ng-container *ngIf="loginForm.get('email')?.touched">
+    <div
+      class="form-error"
+      *ngIf="loginForm.get('email')?.hasError('required')"
+    >
+      Required
+    </div>
+    <div class="form-error" *ngIf="loginForm.get('email')?.hasError('email')">
+      Invalid Email
+    </div>
+  </ng-container>
+  <input
+    formControlName="password"
+    placeholder="Password"
+    type="password"
+    class="form-control"
+  />
+  <ng-container *ngIf="loginForm.get('password')?.touched">
+    <div
+      class="form-error"
+      *ngIf="loginForm.get('password')?.hasError('required')"
+    >
+      Required
+    </div>
+  </ng-container>
+  <button type="submit" class="btn btn-primary btn-block mb-4">Login</button>
+  <div class="text-center">
+    <p>Not a member? <a href="/register">Register</a></p>
+  </div>
+</form>
